@@ -1,25 +1,24 @@
 # Experiment configuration for OpenCharacter persona bias study.
 # Run with:  python code/run.py --config config.yaml
 #
-# Three experiments mirror the original paper (Li et al. 2025):
-#   1. accuracy      — single-agent baseline, one persona per run
-#   2. cps           — pairwise debate, two personas, N turns
-#   3. collaboration — multi-agent (N vs M agents), debate or persuasion task
+# Mirrors the three-stage analysis from the original paper (Li et al. 2025):
+#   §4  accuracy + single-persona trustworthiness/insistence (1 round, 1 persona vs base)
+#   §5  inter-persona dynamics (1 round, all persona pairs)
+#   §6  generalization: multi-round + multi-agent scaling
+#
+# The original paper used API models (GPT-4o, Gemini, DeepSeek) with 16-process
+# parallelism. We use local LoRA adapters sequentially on one GPU, so runs are
+# serial per question. Budget accordingly.
 
 # ── Model ─────────────────────────────────────────────────────────────────────
 model:
   repo: "maius/llama-3.1-8b-it-personas"
   base_id: "meta-llama/Meta-Llama-3.1-8B-Instruct"
   max_new_tokens: 512
-  # temperature=0 → do_sample=False (greedy); >0 enables sampling
-  temperature: 0.0
+  temperature: 0.0  # 0 = greedy (matches paper)
 
 # ── Personas ──────────────────────────────────────────────────────────────────
-# Each OpenCharacter persona is a LoRA adapter subfolder in `model.repo`.
-# null means "all". Set `run` to a list to restrict.
 personas:
-  run: null   # e.g. [sycophancy, sarcasm, nonchalance] or null for all
-
   all:
     - goodness
     - humor
@@ -32,22 +31,9 @@ personas:
     - sarcasm
     - sycophancy
 
-  # Persona pairs to run for CPS and collaboration experiments.
-  # Each entry is [persona1, persona2].
-  # null = run all combinations from `all` list above.
-  pairs: null
-  # Example subset:
-  # pairs:
-  #   - [sycophancy, sarcasm]
-  #   - [sycophancy, sycophancy]
-  #   - [mathematical, sycophancy]
-  #   - [goodness, sycophancy]
-  #   - [nonchalance, impulsiveness]
-
 # ── Benchmark ─────────────────────────────────────────────────────────────────
 benchmark:
-  # "mmlu" or "gpqa"
-  name: mmlu
+  name: mmlu   # "mmlu" or "gpqa"
 
   mmlu:
     subjects:
@@ -55,10 +41,10 @@ benchmark:
       - high_school_chemistry
       - high_school_physics
     split: test
-    n: 200   # null = all available
+    n: 200
 
   gpqa:
-    n: null  # null = all 455
+    n: null
 
 # ── Data paths ────────────────────────────────────────────────────────────────
 data:
@@ -66,66 +52,102 @@ data:
   mmlu_tf:        "../data/mmlu_TF.json"
   gpqa_questions: "../data/gpqa_455.json"
   gpqa_tf:        "../data/gpqa_TF.json"
-  # Claims dataset for persuasion task
   claims:         "../data/persuade_cw.json"
+  cps_history:    "../data/cps_history.json"
+  persuade_history: "../data/persuade_history.json"
 
-# ── TF chain generation ───────────────────────────────────────────────────────
-# Used by prepare_data to build the *_TF.json file.
+# ── TF chain generation (prepare_data step) ──────────────────────────────────
 tf_generation:
-  model_type: local   # "local" (GPU) or "api" (requires KEY module)
-  api_model: gpt      # only used when model_type = api
+  model_type: local   # "local" = base model on GPU, "api" = KEY module
+  api_model: gpt
 
 # ── Experiments ───────────────────────────────────────────────────────────────
 experiments:
 
-  # Download benchmark + generate TF reasoning chains.
-  # Set false if data files already exist.
   prepare_data: true
 
-  # ── Experiment 1: Single-agent accuracy baseline ───────────────────────────
-  # Each persona answers questions independently. No interaction.
-  # Mirrors accuracy.py. Establishes per-persona accuracy floor.
+  # ── §4: Single-agent accuracy baseline ─────────────────────────────────────
+  # Each persona answers every question alone. No interaction.
+  # Establishes per-persona accuracy and what a single-agent audit detects.
+  # Original: 5 personas × 455 questions × 3 models
+  # Ours:     10 personas × 200 questions = 2,000 inferences
   accuracy:
     run: true
+    # null = all personas. Or list a subset: [sycophancy, mathematical, sarcasm]
+    personas: null
 
-  # ── Experiment 2: Pairwise debate (CPS) ───────────────────────────────────
-  # Two agents with different personas debate a factual question.
-  # Agent1 starts with correct answer (initial=T) or wrong (initial=F).
-  # Mirrors cps.py.
-  cps:
+  # ── §4: Trustworthiness & insistence (single-persona, 1 round) ─────────────
+  # One persona-LoRA agent vs one base model (no adapter) agent.
+  # Trustworthiness: persona has WRONG answer, does base agent conform?
+  # Insistence: persona has CORRECT answer, does persona agent resist?
+  # 1 round only, both initial directions (T + F).
+  # Original: 5 personas × 455 × 2 initials × 2 agents = 9,100 calls
+  # Ours:     10 personas × 200 × 2 initials × 2 agents = 8,000 inferences
+  single_persona:
     run: true
-    # Which initial assignments to run: ["T", "F"] or just ["T"]
-    # T = persona1 starts correct, persona2 starts wrong
-    # F = persona1 starts wrong,   persona2 starts correct
+    personas: null
     initial: [T, F]
-    # Turn counts to sweep (mirrors paper ablation N ∈ {1, 4, 8})
-    turns: [1, 4, 8]
+    turns: 1
 
-  # ── Experiment 3: Multi-agent collaboration / persuasion ──────────────────
-  # Mirrors collaboration.py. Two sub-modes:
-  #   debate    — N agents of persona1 vs M agents of persona2 on a CPS question
-  #   persuasion — 1 persuadee (persona1) vs M persuaders (persona2) on a claim
-  collaboration:
+  # ── §5: Inter-persona dynamics (all pairs, 1 round) ────────────────────────
+  # Both agents have persona LoRA adapters. All ordered pairs.
+  # Measures conformity rate C(p1 → p2) for every combination.
+  # 1 round only.
+  # Original: 25 gender pairs × 455 × 2 initials × 2 agents = 91,000 calls
+  # Ours:     100 pairs × 200 × 2 initials × 2 agents = 80,000 inferences
+  #           (can be cut by selecting a subset of pairs)
+  inter_persona:
     run: true
+    # null = all 10×10 = 100 ordered pairs (including same-persona pairs).
+    # Or list specific pairs: [[sycophancy, sarcasm], [goodness, sycophancy]]
+    pairs: null
+    initial: [T, F]
+    turns: 1
+
+  # ── §6: Multi-round scaling (targeted pairs only) ──────────────────────────
+  # Tests whether biases persist over multiple interaction rounds.
+  # Original ran only 2 representative pairs (man/woman, White/Black), 5 rounds.
+  # Pick representative pairs that showed strongest effects in §5.
+  multi_round:
+    run: false   # run after §4/§5 results identify interesting pairs
+    pairs:
+      - [sycophancy, mathematical]
+      - [sycophancy, sarcasm]
+    initial: [T, F]
+    turns: [1, 2, 3, 4, 5]
+
+  # ── §6: Multi-agent group scaling (targeted pairs only) ────────────────────
+  # Scales number of agents per side. Same targeted pairs.
+  #
+  # debate: N agents persona1 vs N agents persona2 on CPS questions
+  # persuasion: 1 persuadee (persona1) vs M persuaders (persona2) on claims
+  collaboration:
+    run: false   # run after §4/§5 results identify interesting pairs
 
     debate:
-      run: true
-      # Number of agents per side to sweep
-      num_agents: [2, 4]   # num1=num2 (balanced, mirrors paper)
+      run: false
+      pairs:
+        - [sycophancy, mathematical]
+        - [sycophancy, sarcasm]
+      num_agents: [2, 3, 4]    # per side (balanced)
       initial: [T, F]
-      turns: [4, 8]
+      turns: 5
 
     persuasion:
-      run: true
-      # Number of persuaders to sweep (persuadee is always 1 agent)
+      run: false
+      pairs:
+        - [sycophancy, mathematical]
+        - [sycophancy, sarcasm]
       num_persuaders: [1, 2, 3]
-      # Initial stance of persuadee: "support", "oppose", or both
       initial: [support, oppose]
-      turns: [4, 8]
+      turns: 5
 
 # ── Output ────────────────────────────────────────────────────────────────────
 output:
   base_dir: "results"
-  accuracy: "results/accuracy/opencharacter_{benchmark}.json"
-  cps:      "results/cps/{persona1}_{persona2}_{initial}_turn{turns}/"
-  collab:   "results/collaboration/{task}/{persona1}_{persona2}_{initial}_turn{turns}/"
+  accuracy:       "results/accuracy/opencharacter_{benchmark}.json"
+  single_persona: "results/single_persona/{persona}_{mode}_{initial}.json"
+  inter_persona:  "results/inter_persona/{persona1}_{persona2}_{initial}.json"
+  multi_round:    "results/multi_round/{persona1}_{persona2}_{initial}_turn{turns}/"
+  collab_debate:  "results/collaboration/debate/{persona1}_{persona2}_{num}v{num}_{initial}/"
+  collab_persuade: "results/collaboration/persuade/{persona1}_{persona2}_1v{num}_{initial}/"
