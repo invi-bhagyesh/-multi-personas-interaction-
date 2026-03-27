@@ -98,5 +98,5 @@ experiments:
 # ── Output ────────────────────────────────────────────────────────────────────
 output:
   base_dir: "results"
-  table1: "results/table1/{persona}_{initial}.json"
+  table1: "results/table1/table1.json"
   table2: "results/table2/{persona1}_{persona2}_{initial}.json"
