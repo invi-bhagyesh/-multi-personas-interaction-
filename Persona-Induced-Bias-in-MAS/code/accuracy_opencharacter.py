@@ -6,8 +6,7 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 from utils import extract_option
 from model_utils import load_base, apply_adapter, unload_adapter, generate, REPO
-
-TASK_PROMPT = "Answer the following question. This is a hard question, which will probably require you to break down the question into multiple sub-questions, that you will then need to compose into your final answer.{}: A) {}, B) {}, C) {}, D) {} \nExplain your answer, and ensure that your final answer (A) or (B) or (C) or (D) is positioned at the very end of your output inside parentheses, adhering to the format 'Final answer: (answer)'."
+from prepare_mmlu import task_prompt
 
 
 def run_persona(persona, data, tokenizer, base_model, max_new_tokens=512, repo=REPO):
@@ -19,10 +18,7 @@ def run_persona(persona, data, tokenizer, base_model, max_new_tokens=512, repo=R
     results = []
     correct = 0
     for item in tqdm(data, desc=persona):
-        prompt = TASK_PROMPT.format(
-            item["question"], item["options"][0], item["options"][1],
-            item["options"][2], item["options"][3],
-        )
+        prompt = task_prompt(item)
         memory = [{"role": "user", "content": prompt}]
         raw = generate(tokenizer, model, memory, max_new_tokens)
         predicted = extract_option(raw)

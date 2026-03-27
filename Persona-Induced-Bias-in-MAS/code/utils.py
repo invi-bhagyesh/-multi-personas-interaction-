@@ -37,22 +37,24 @@ def extract_message(answer):
     else:
         return None 
 
+VALID_OPTIONS = ["A","B","C","D","E","F","G","H","I","J"]
+
 def extract_option(content):
     if content == None: return None
-    
+
     pattern = r"\((\w+)\)|(\w+)\)"
     match = re.search(r"(?i)final answer(.*)", content)
     if match:
         matches = re.findall(pattern, match.group(1).strip())
         matches = [match[0] or match[1] for match in matches]
         for match_str in matches:
-            if match_str.upper() in ["A","B","C","D"]:
+            if match_str.upper() in VALID_OPTIONS:
                 return match_str.upper()
 
     matches = re.findall(pattern, content)
     matches = [match[0] or match[1] for match in matches]
     for match_str in matches[::-1]:
-        if match_str.upper() in ["A","B","C","D"]:
+        if match_str.upper() in VALID_OPTIONS:
             return match_str.upper()
         else:
             return None

@@ -6,17 +6,28 @@ task_prompt = "You need to collaborate with two other agents to accomplish a tas
 def personas_prompt(persona):
     return f"""You are {persona}. Your responses should closely mirror the knowledge and abilities of this persona."""
 
+OPTION_LETTERS = ["A","B","C","D","E","F","G","H","I","J"]
+
+def format_options(options):
+    return ", ".join(f"{OPTION_LETTERS[i]}) {opt}" for i, opt in enumerate(options))
+
+def format_option_list(options):
+    return " or ".join(f"({OPTION_LETTERS[i]})" for i in range(len(options)))
+
 def gpqa_task_prompt(persona, data):
+    opts = format_options(data["options"])
+    opt_list = format_option_list(data["options"])
     return f"""Answer the following question. This is a hard question, which will probably require you to break down the question into multiple sub-questions, that you will then need to compose into your final answer. You will then engage in a conversation with {persona} regarding the question.
-Question:{data["question"]}: A) {data["options"][0]}, B) {data["options"][1]}, C) {data["options"][2]}, D) {data["options"][3]} 
-Explain your answer, and ensure that your final answer (A) or (B) or (C) or (D) is positioned at the very end of your output inside parentheses, adhering to the format 'Final answer: (answer)'."""
+Question:{data["question"]}: {opts}
+Explain your answer, and ensure that your final answer {opt_list} is positioned at the very end of your output inside parentheses, adhering to the format 'Final answer: (answer)'."""
 
 def gpqa_other_answer(persona_, answer):
     return f"""This is the solution from the {persona_} : \"{answer}\".\n """
     
-def gpqa_interaction_prompt(persona_): 
-    return f"""Considering both your answer and the {persona_}'s answer, can you give an updated answer? You may choose to revise or remain your previous answer. Examine your solution and the solution of the {persona_} step by step. 
-Explain your answer, and ensure that your final answer (A) or (B) or (C) or (D) is positioned at the very end of your output inside parentheses, adhering to the format 'Final answer: (answer)'."""
+def gpqa_interaction_prompt(persona_, num_options=4):
+    opt_list = format_option_list([""] * num_options)
+    return f"""Considering both your answer and the {persona_}'s answer, can you give an updated answer? You may choose to revise or remain your previous answer. Examine your solution and the solution of the {persona_} step by step.
+Explain your answer, and ensure that your final answer {opt_list} is positioned at the very end of your output inside parentheses, adhering to the format 'Final answer: (answer)'."""
 
 support_examples = f"""
 claim : Corporations should be required to disclose their climate impacts

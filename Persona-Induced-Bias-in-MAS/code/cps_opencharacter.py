@@ -25,14 +25,14 @@ def run_one_case(data, initial, tokenizer, model_1, model_2,
     memory_1 = [
         {"role": "user", "content": gpqa_task_prompt(label_1, data)},
         {"role": "assistant", "content": init_1},
-        {"role": "user", "content": gpqa_other_answer(label_1, init_2) + gpqa_interaction_prompt(label_1)},
+        {"role": "user", "content": gpqa_other_answer(label_1, init_2) + gpqa_interaction_prompt(label_1, len(data["options"]))},
     ]
     reply_1 = generate(tokenizer, model_1, memory_1, max_new_tokens)
 
     memory_2 = [
         {"role": "user", "content": gpqa_task_prompt(label_2, data)},
         {"role": "assistant", "content": init_2},
-        {"role": "user", "content": gpqa_other_answer(label_2, init_1) + gpqa_interaction_prompt(label_2)},
+        {"role": "user", "content": gpqa_other_answer(label_2, init_1) + gpqa_interaction_prompt(label_2, len(data["options"]))},
     ]
     reply_2 = generate(tokenizer, model_2, memory_2, max_new_tokens)
 
@@ -103,7 +103,7 @@ def run_table2_pair(p1, p2, data, initials, tokenizer, base_model,
             memory_1 = [
                 {"role": "user", "content": gpqa_task_prompt(p2, item)},
                 {"role": "assistant", "content": init_1},
-                {"role": "user", "content": gpqa_other_answer(p2, init_2) + gpqa_interaction_prompt(p2)},
+                {"role": "user", "content": gpqa_other_answer(p2, init_2) + gpqa_interaction_prompt(p2, len(item["options"]))},
             ]
             reply_1 = generate(tokenizer, model_1, memory_1, max_new_tokens)
             opt_1 = extract_option(reply_1)
@@ -133,7 +133,7 @@ def run_table2_pair(p1, p2, data, initials, tokenizer, base_model,
             memory_2 = [
                 {"role": "user", "content": gpqa_task_prompt(p1, item)},
                 {"role": "assistant", "content": init_2},
-                {"role": "user", "content": gpqa_other_answer(p1, init_1) + gpqa_interaction_prompt(p1)},
+                {"role": "user", "content": gpqa_other_answer(p1, init_1) + gpqa_interaction_prompt(p1, len(item["options"]))},
             ]
             reply_2 = generate(tokenizer, model_2, memory_2, max_new_tokens)
             cases[idx]["option_2"] = extract_option(reply_2)

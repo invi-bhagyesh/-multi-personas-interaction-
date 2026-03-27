@@ -34,6 +34,8 @@ def get_data_paths(cfg):
     name = cfg["benchmark"]["name"]
     if name == "mmlu":
         return resolve_path(cfg["data"]["mmlu_questions"]), resolve_path(cfg["data"]["mmlu_tf"])
+    elif name == "mmlu_pro":
+        return resolve_path(cfg["data"]["mmlu_pro_questions"]), resolve_path(cfg["data"]["mmlu_pro_tf"])
     elif name == "gpqa":
         return resolve_path(cfg["data"]["gpqa_questions"]), resolve_path(cfg["data"]["gpqa_tf"])
     raise ValueError(f"Unknown benchmark: {name}")
@@ -49,25 +51,28 @@ def get_n(cfg):
 def run_prepare_data(cfg):
     import random
     from tqdm import tqdm
-    from prepare_mmlu import load_mmlu, build_tf_entry, build_tf_entries_parallel, generate_local, generate_api
+    from prepare_mmlu import load_mmlu, load_mmlu_pro, build_tf_entry, build_tf_entries_parallel, generate_local, generate_api
 
     name = cfg["benchmark"]["name"]
-    if name != "mmlu":
-        print("[prepare_data] Only MMLU prep is automated. Skipping.")
+    if name not in ("mmlu", "mmlu_pro"):
+        print(f"[prepare_data] No automated prep for {name}. Skipping.")
         return
 
     random.seed(42)
-    bcfg = cfg["benchmark"]["mmlu"]
+    bcfg = cfg["benchmark"][name]
     tfcfg = cfg["tf_generation"]
-    q_out = resolve_path(cfg["data"]["mmlu_questions"])
-    tf_out = resolve_path(cfg["data"]["mmlu_tf"])
+    q_out, tf_out = get_data_paths(cfg)
     n = bcfg.get("n")
 
     os.makedirs(os.path.dirname(q_out) or ".", exist_ok=True)
 
     if not os.path.exists(q_out):
-        print("Downloading MMLU ...")
-        records = load_mmlu(bcfg["subjects"], bcfg.get("split", "test"), n)
+        if name == "mmlu":
+            print("Downloading MMLU ...")
+            records = load_mmlu(bcfg["subjects"], bcfg.get("split", "test"), n)
+        else:
+            print("Downloading MMLU-Pro ...")
+            records = load_mmlu_pro(bcfg.get("categories"), bcfg.get("split", "test"), n)
         with open(q_out, "w") as f:
             json.dump(records, f, indent=4)
         print(f"  saved {len(records)} questions -> {q_out}")
