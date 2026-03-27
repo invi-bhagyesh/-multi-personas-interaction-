@@ -9,7 +9,11 @@ model:
 
 # ── Personas ──────────────────────────────────────────────────────────────────
 personas:
-  run: null
+  run:
+    - sycophancy
+    - sarcasm
+    - mathematical
+    - nonchalance
 
   all:
     - humor
