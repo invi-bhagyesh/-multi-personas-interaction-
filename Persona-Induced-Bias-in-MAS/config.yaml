@@ -1,102 +1,83 @@
-# Experiment configuration — Replicate Tables 1 & 2 from Li et al. (2025)
-# using OpenCharacter LoRA personas instead of demographic prompt-injection.
-#
-# Table 1: Trustworthiness & insistence of individual personas
-#          (1 persona-LoRA agent vs 1 base-model agent, 1 round)
-#
-# Table 2: Conformity rates among all persona pairs
-#          (both agents have LoRA adapters, 1 round)
-#          + "All" vs "Intra" comparison for in-group favoritism
-#
-# Run with:  python code/run.py --config config.yaml
+# Experiment configuration for OpenCharacter persona bias study.
+# Pass this file to run.py:  python code/run.py --config config.yaml
 
 # ── Model ─────────────────────────────────────────────────────────────────────
 model:
-  repo: "maius/llama-3.1-8b-it-personas"
-  base_id: "meta-llama/Meta-Llama-3.1-8B-Instruct"
+  # HuggingFace repo containing the LoRA persona adapters
+  repo: "maius/qwen-2.5-7b-it-personas"
+  # Base model to load adapters on top of
+  base_id: "Qwen/Qwen2.5-7B-Instruct"
+  # Max new tokens for generation
   max_new_tokens: 512
-  temperature: 0.0
 
 # ── Personas ──────────────────────────────────────────────────────────────────
-# 4 personas spanning the behavioral spectrum:
-#   sycophancy   — agreeable, expected high conformity
-#   sarcasm      — contrarian, expected low conformity
-#   mathematical — analytical, expected to resist with reasoning
-#   nonchalance  — detached, unclear prediction
 personas:
-  run:
-    - sycophancy
-    - sarcasm
+  # Set to null to run all 10 personas
+  # Or list a subset: [sarcasm, sycophancy, nonchalance, mathematical]
+  run: null
+
+  all:
+    - humor
+    - impulsiveness
+    - loving
     - mathematical
     - nonchalance
+    - poeticism
+    - remorse
+    - sarcasm
+    - sycophancy
 
 # ── Benchmark ─────────────────────────────────────────────────────────────────
 benchmark:
+  # "mmlu" or "gpqa"
   name: mmlu
+
   mmlu:
     subjects:
       - high_school_biology
       - high_school_chemistry
       - high_school_physics
     split: test
+    # Max total questions across all subjects. null = all available
     n: 200
+
+  gpqa:
+    # null = all 455 questions
+    n: null
 
 # ── Data paths ────────────────────────────────────────────────────────────────
 data:
   mmlu_questions: "../data/mmlu_questions.json"
-  mmlu_tf:        "../data/mmlu_TF.json"
+  mmlu_tf: "../data/mmlu_TF.json"
+  gpqa_questions: "../data/gpqa_455.json"
+  gpqa_tf: "../data/gpqa_TF.json"
 
-# ── TF chain generation ──────────────────────────────────────────────────────
-tf_generation:
-  model_type: local
-  api_model: gpt
-
-# ── Experiments ───────────────────────────────────────────────────────────────
+# ── Experiments to run ────────────────────────────────────────────────────────
 experiments:
-
+  # Prepare benchmark data (download + generate TF chains). Set to false if
+  # data files already exist.
   prepare_data: true
 
-  # ── Table 1: Trustworthiness & Insistence ──────────────────────────────────
-  # Setup (from paper §4):
-  #   Trustworthiness T(p): persona agent Ap + default agent Ad, 1 round.
-  #     T(p) = rate at which Ad conforms to Ap.
-  #   Insistence I(p): same setup, measured from the other side.
-  #     I(p) = 1 - rate at which Ap conforms to Ad.
-  #
-  # Both T and F initial conditions are run and aggregated (counterbalanced).
-  #   T = persona1 starts correct, base starts wrong
-  #   F = persona1 starts wrong, base starts correct
-  #
-  # 4 personas × 200 Qs × 2 initials × 2 agents = 3,200 inferences
-  table1:
+  # Single-persona accuracy baseline (no interaction)
+  accuracy: true
+
+  # Trustworthiness & insistence dyadic experiment
+  cps:
     run: true
-    initial: [T, F]
+    # "trustworthiness", "insistence", or "both"
+    mode: both
+    # Number of debate rounds (1 = single round, mirrors paper §4)
     turns: 1
 
-  # ── Table 2: Inter-persona conformity matrix ──────────────────────────────
-  # Setup (from paper §5):
-  #   Both agents have persona LoRA adapters. All ordered pairs.
-  #   C(p1→p2) = rate at which p1 conforms to p2, over 1 round.
-  #   4×4 = 16 ordered pairs (includes diagonal = same-persona pairs).
-  #
-  # Both T and F initial conditions, aggregated.
-  #
-  # Metrics:
-  #   - Full 4×4 conformity heatmap
-  #   - "All" = average C across all pairs
-  #   - "Intra" = average C for same-persona pairs (diagonal)
-  #   - Intra > All → in-group favoritism
-  #
-  # 16 pairs × 200 Qs × 2 initials × 2 agents = 12,800 inferences
-  table2:
-    run: true
-    # null = all ordered pairs from personas.run (4×4=16)
-    pairs: null
-    initial: [T, F]
-    turns: 1
+# ── TF chain generation (used by prepare_data) ────────────────────────────────
+tf_generation:
+  # "local" = use base_id model on GPU
+  # "api"   = use an API model (requires KEY module)
+  model_type: local
+  api_model: gpt # only used when model_type = api
 
 # ── Output ────────────────────────────────────────────────────────────────────
 output:
   base_dir: "results"
-  table1: "results/table1/table1.json"
-  table2: "results/table2/{persona1}_{persona2}_{initial}.json"
+  accuracy: "results/accuracy/opencharacter_mmlu.json"
+  cps_dir: "results/cps_opencharacter"

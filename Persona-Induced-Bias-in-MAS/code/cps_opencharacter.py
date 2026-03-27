@@ -31,8 +31,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 from utils import extract_option
 from prompts import gpqa_task_prompt, gpqa_other_answer, gpqa_interaction_prompt
 
-REPO    = "maius/llama-3.1-8b-it-personas"
-BASE_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
+REPO    = "maius/qwen-2.5-7b-it-personas"
+BASE_ID = "Qwen/Qwen2.5-7B-Instruct"
 
 # How agents refer to each other in prompts (no demographic label needed)
 LABEL_BASE    = "another agent"

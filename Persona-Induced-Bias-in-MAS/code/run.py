@@ -5,8 +5,8 @@ Usage:
     cd Persona-Induced-Bias-in-MAS
     python code/run.py                                    # uses config.yaml
     python code/run.py --config config.yaml               # explicit
-    python code/run.py --experiments table1               # run only table1
-    python code/run.py --experiments prepare_data table1 table2
+    python code/run.py --experiments accuracy              # run only accuracy
+    python code/run.py --experiments prepare_data accuracy cps
 """
 
 import argparse
@@ -29,14 +29,17 @@ def load_config(path):
 
 
 def resolve_path(rel_path):
-    """Resolve a path relative to PROJECT_DIR (handles ../data/... etc)."""
+    """Resolve a path relative to PROJECT_DIR/code/ (handles ../data/... etc)."""
     if os.path.isabs(rel_path):
         return rel_path
-    return os.path.normpath(os.path.join(PROJECT_DIR, "code", rel_path))
+    return os.path.normpath(os.path.join(SCRIPT_DIR, rel_path))
 
 
 def resolve_personas(cfg):
-    return cfg["personas"]["run"]
+    chosen = cfg["personas"].get("run")
+    if chosen is None:
+        return cfg["personas"]["all"]
+    return chosen
 
 
 def resolve_data_paths(cfg):
@@ -118,22 +121,20 @@ def run_prepare_data(cfg):
         print(f"  [skip] {tf_out} exists")
 
 
-# ── Table 1: trustworthiness & insistence (persona vs base) ──────────────────
+# ── accuracy ──────────────────────────────────────────────────────────────────
 
-def run_table1(cfg):
+def run_accuracy(cfg):
     import accuracy_opencharacter as acc_mod
-    import cps_opencharacter as cps_mod
 
-    personas  = resolve_personas(cfg)
-    _, tf_path = resolve_data_paths(cfg)
-    t1_cfg    = cfg["experiments"]["table1"]
-    initials  = t1_cfg["initial"]
-    n         = resolve_n(cfg)
-    mnt       = cfg["model"]["max_new_tokens"]
-    repo      = cfg["model"]["repo"]
-    out_path  = resolve_path(cfg["output"]["table1"])
+    personas   = resolve_personas(cfg)
+    q_path, _  = resolve_data_paths(cfg)
+    n          = resolve_n(cfg)
+    mnt        = cfg["model"]["max_new_tokens"]
+    base_id    = cfg["model"]["base_id"]
+    repo       = cfg["model"]["repo"]
+    out_path   = resolve_path(cfg["output"]["accuracy"])
 
-    with open(tf_path) as f:
+    with open(q_path) as f:
         data = json.load(f)
     if n:
         data = data[:n]
@@ -141,107 +142,84 @@ def run_table1(cfg):
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
 
     # Load base model once
-    tokenizer, base_model = cps_mod.load_base(cfg["model"]["base_id"])
+    tokenizer, base_model = acc_mod.load_base(base_id)
 
-    results = []
+    all_results = []
     for persona in personas:
-        if persona == "base":
-            continue  # table1 is persona vs base; skip base itself
-        r = cps_mod.run_table1_persona(
-            persona, data, initials, tokenizer, base_model,
-            max_new_tokens=mnt, repo=repo,
-        )
-        results.append(r)
-        # checkpoint
+        r = acc_mod.run_persona(persona, data, tokenizer, base_model,
+                                max_new_tokens=mnt, repo=repo)
+        all_results.append(r)
         with open(out_path, "w") as f:
-            json.dump(results, f, indent=4, default=str)
+            json.dump(all_results, f, indent=4)
 
-    # Print Table 1 summary
-    print(f"\n{'='*60}")
-    print("  TABLE 1 — Trustworthiness & Insistence")
-    print(f"{'='*60}")
-    print(f"  {'Persona':15s}  {'Trust':>7s}  {'Insist':>7s}")
-    print(f"  {'-'*33}")
-    t_scores, i_scores = [], []
-    for r in results:
-        t, i = r["trustworthiness"], r["insistence"]
-        t_scores.append(t)
-        i_scores.append(i)
-        print(f"  {r['persona']:15s}  {t:7.3f}  {i:7.3f}")
-    print(f"  {'-'*33}")
-    if len(t_scores) > 1:
-        print(f"  {'Δmax-min':15s}  {max(t_scores)-min(t_scores):7.3f}  "
-              f"{max(i_scores)-min(i_scores):7.3f}")
-    print(f"  {'mean':15s}  {sum(t_scores)/len(t_scores):7.3f}  "
-          f"{sum(i_scores)/len(i_scores):7.3f}")
+    print("\n=== Accuracy Summary ===")
+    for r in all_results:
+        print(f"  {r['persona']:15s}  {r['accuracy']:.3f}")
 
 
-# ── Table 2: inter-persona conformity (all pairs) ────────────────────────────
+# ── cps (trustworthiness & insistence) ────────────────────────────────────────
 
-def run_table2(cfg):
+def run_cps(cfg):
     import cps_opencharacter as cps_mod
 
-    personas  = resolve_personas(cfg)
+    personas   = resolve_personas(cfg)
     _, tf_path = resolve_data_paths(cfg)
-    t2_cfg    = cfg["experiments"]["table2"]
-    initials  = t2_cfg["initial"]
-    n         = resolve_n(cfg)
-    mnt       = cfg["model"]["max_new_tokens"]
-    repo      = cfg["model"]["repo"]
-    out_dir   = os.path.dirname(resolve_path(cfg["output"]["table2"]))
-
-    # Build pair list
-    if t2_cfg.get("pairs"):
-        pairs = [tuple(p) for p in t2_cfg["pairs"]]
-    else:
-        # All ordered pairs from the persona list (excluding "base")
-        active = [p for p in personas if p != "base"]
-        pairs = list(itertools.product(active, repeat=2))
+    cps_cfg    = cfg["experiments"]["cps"]
+    n          = resolve_n(cfg)
+    mnt        = cfg["model"]["max_new_tokens"]
+    base_id    = cfg["model"]["base_id"]
+    repo       = cfg["model"]["repo"]
+    out_dir    = resolve_path(cfg["output"]["cps_dir"])
+    mode       = cps_cfg.get("mode", "both")
 
     with open(tf_path) as f:
         data = json.load(f)
     if n:
         data = data[:n]
 
-    os.makedirs(out_dir or ".", exist_ok=True)
+    os.makedirs(out_dir, exist_ok=True)
 
-    tokenizer, base_model = cps_mod.load_base(cfg["model"]["base_id"])
+    tokenizer, base_model = cps_mod.load_base(base_id)
 
-    results = []
+    # Table 1: each persona vs base
+    initials = ["T", "F"]
+    modes = ["trustworthiness", "insistence"] if mode == "both" else [mode]
+
+    table1_results = []
+    print(f"\n{'='*50}\n  TABLE 1 — Persona vs Base\n{'='*50}")
+    for persona in personas:
+        r = cps_mod.run_table1_persona(
+            persona, data, initials, tokenizer, base_model,
+            max_new_tokens=mnt, repo=repo,
+        )
+        table1_results.append(r)
+        with open(os.path.join(out_dir, "table1.json"), "w") as f:
+            json.dump(table1_results, f, indent=4, default=str)
+
+    print(f"\n  {'Persona':15s}  {'Trust':>7s}  {'Insist':>7s}")
+    print(f"  {'-'*33}")
+    for r in table1_results:
+        print(f"  {r['persona']:15s}  {r['trustworthiness']:7.3f}  {r['insistence']:7.3f}")
+
+    # Table 2: all persona pairs
+    active = [p for p in personas if p != "base"]
+    pairs = list(itertools.product(active, repeat=2))
+
+    table2_results = []
+    print(f"\n{'='*50}\n  TABLE 2 — All Persona Pairs\n{'='*50}")
     for p1, p2 in pairs:
         r = cps_mod.run_table2_pair(
             p1, p2, data, initials, tokenizer, base_model,
             max_new_tokens=mnt, repo=repo,
         )
-        results.append(r)
-        # checkpoint per pair
-        pair_path = resolve_path(cfg["output"]["table2"].format(
-            persona1=p1, persona2=p2, initial="TF"))
-        os.makedirs(os.path.dirname(pair_path) or ".", exist_ok=True)
-        with open(pair_path, "w") as f:
-            json.dump(r, f, indent=4, default=str)
+        table2_results.append(r)
+        with open(os.path.join(out_dir, "table2.json"), "w") as f:
+            json.dump(table2_results, f, indent=4, default=str)
 
-    # Save combined results
-    combined_path = os.path.join(out_dir, "table2_all.json")
-    with open(combined_path, "w") as f:
-        json.dump(results, f, indent=4, default=str)
-
-    # Print Table 2 heatmap
-    active = sorted(set(r["persona1"] for r in results))
-    conf = {}
-    for r in results:
-        conf[(r["persona1"], r["persona2"])] = r["conformity"]
-
-    print(f"\n{'='*60}")
-    print("  TABLE 2 — Conformity rates C(p1→p2)")
-    print(f"{'='*60}")
-
-    header = f"  {'C(row→col)':15s}" + "".join(f"  {p[:7]:>7s}" for p in active)
-    print(header)
-    print(f"  {'-'*len(header)}")
-
-    all_scores = []
-    intra_scores = []
+    # Print heatmap
+    conf = {(r["persona1"], r["persona2"]): r["conformity"] for r in table2_results}
+    print(f"\n  {'C(row→col)':15s}" + "".join(f"  {p[:7]:>7s}" for p in active))
+    all_scores, intra_scores = [], []
     for p1 in active:
         row = f"  {p1:15s}"
         for p2 in active:
@@ -258,22 +236,21 @@ def run_table2(cfg):
     avg_intra = sum(intra_scores) / len(intra_scores) if intra_scores else 0
     print(f"\n  All: {avg_all:.3f}   Intra: {avg_intra:.3f}   "
           f"Δ(Intra-All): {avg_intra - avg_all:+.3f}")
-    if avg_intra > avg_all:
-        print("  → In-group favoritism detected")
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 EXPERIMENT_MAP = {
     "prepare_data": run_prepare_data,
-    "table1":       run_table1,
-    "table2":       run_table2,
+    "accuracy":     run_accuracy,
+    "cps":          run_cps,
 }
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", default=os.path.join(PROJECT_DIR, "config.yaml"))
+    parser.add_argument("--config",
+                        default=os.path.join(PROJECT_DIR, "config.yaml"))
     parser.add_argument("--experiments", nargs="+",
                         choices=list(EXPERIMENT_MAP.keys()), default=None)
     return parser.parse_args()
@@ -289,12 +266,14 @@ def main():
         to_run = []
         if cfg["experiments"].get("prepare_data"):
             to_run.append("prepare_data")
-        if cfg["experiments"].get("table1", {}).get("run"):
-            to_run.append("table1")
-        if cfg["experiments"].get("table2", {}).get("run"):
-            to_run.append("table2")
+        if cfg["experiments"].get("accuracy"):
+            to_run.append("accuracy")
+        if cfg["experiments"].get("cps", {}).get("run"):
+            to_run.append("cps")
 
     print(f"Config:    {args.config}")
+    print(f"Model:     {cfg['model']['base_id']}")
+    print(f"Adapters:  {cfg['model']['repo']}")
     print(f"Benchmark: {cfg['benchmark']['name']}")
     print(f"Personas:  {resolve_personas(cfg)}")
     print(f"Running:   {to_run}\n")
