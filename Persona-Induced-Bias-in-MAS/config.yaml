@@ -1,6 +1,12 @@
-# Experiment configuration — pilot run
-# Goal: verify that LoRA persona models behave differently from each other
-#       and from the base model WITHOUT any system prompt steering.
+# Experiment configuration — Replicate Tables 1 & 2 from Li et al. (2025)
+# using OpenCharacter LoRA personas instead of demographic prompt-injection.
+#
+# Table 1: Trustworthiness & insistence of individual personas
+#          (1 persona-LoRA agent vs 1 base-model agent, 1 round)
+#
+# Table 2: Conformity rates among all persona pairs
+#          (both agents have LoRA adapters, 1 round)
+#          + "All" vs "Intra" comparison for in-group favoritism
 #
 # Run with:  python code/run.py --config config.yaml
 
@@ -12,13 +18,17 @@ model:
   temperature: 0.0
 
 # ── Personas ──────────────────────────────────────────────────────────────────
-# Pilot: 3 maximally different personas + base model (no adapter)
+# 4 personas spanning the behavioral spectrum:
+#   sycophancy   — agreeable, expected high conformity
+#   sarcasm      — contrarian, expected low conformity
+#   mathematical — analytical, expected to resist with reasoning
+#   nonchalance  — detached, unclear prediction
 personas:
   run:
-    - base          # no LoRA — raw Llama-3.1-8B-Instruct
-    - sycophancy    # most agreeable, likely to conform
-    - mathematical  # most analytical, likely to resist with reasoning
-    - sarcasm       # most contrarian, likely to resist differently
+    - sycophancy
+    - sarcasm
+    - mathematical
+    - nonchalance
 
 # ── Benchmark ─────────────────────────────────────────────────────────────────
 benchmark:
@@ -29,7 +39,7 @@ benchmark:
       - high_school_chemistry
       - high_school_physics
     split: test
-    n: 50   # small sample for pilot
+    n: 200
 
 # ── Data paths ────────────────────────────────────────────────────────────────
 data:
@@ -46,28 +56,47 @@ experiments:
 
   prepare_data: true
 
-  # Exp 1: Accuracy — does each persona get different scores on the same Qs?
-  # 4 models × 50 Qs = 200 inferences
-  accuracy:
+  # ── Table 1: Trustworthiness & Insistence ──────────────────────────────────
+  # Setup (from paper §4):
+  #   Trustworthiness T(p): persona agent Ap + default agent Ad, 1 round.
+  #     T(p) = rate at which Ad conforms to Ap.
+  #   Insistence I(p): same setup, measured from the other side.
+  #     I(p) = 1 - rate at which Ap conforms to Ad.
+  #
+  # Both T and F initial conditions are run and aggregated (counterbalanced).
+  #   T = persona1 starts correct, base starts wrong
+  #   F = persona1 starts wrong, base starts correct
+  #
+  # 4 personas × 200 Qs × 2 initials × 2 agents = 3,200 inferences
+  table1:
     run: true
+    initial: [T, F]
+    turns: 1
 
-  # Exp 2: Pairwise debate — one round, do agents actually diverge?
-  # 3 persona pairs vs base, T only → 3 pairs × 50 Qs × 2 agents = 300 inferences
-  # Plus 3 persona-vs-persona pairs to check interaction effects
-  cps:
+  # ── Table 2: Inter-persona conformity matrix ──────────────────────────────
+  # Setup (from paper §5):
+  #   Both agents have persona LoRA adapters. All ordered pairs.
+  #   C(p1→p2) = rate at which p1 conforms to p2, over 1 round.
+  #   4×4 = 16 ordered pairs (includes diagonal = same-persona pairs).
+  #
+  # Both T and F initial conditions, aggregated.
+  #
+  # Metrics:
+  #   - Full 4×4 conformity heatmap
+  #   - "All" = average C across all pairs
+  #   - "Intra" = average C for same-persona pairs (diagonal)
+  #   - Intra > All → in-group favoritism
+  #
+  # 16 pairs × 200 Qs × 2 initials × 2 agents = 12,800 inferences
+  table2:
     run: true
-    pairs:
-      - [sycophancy, base]
-      - [mathematical, base]
-      - [sarcasm, base]
-      - [sycophancy, mathematical]
-      - [sycophancy, sarcasm]
-      - [mathematical, sarcasm]
-    initial: [T]
+    # null = all ordered pairs from personas.run (4×4=16)
+    pairs: null
+    initial: [T, F]
     turns: 1
 
 # ── Output ────────────────────────────────────────────────────────────────────
 output:
   base_dir: "results"
-  accuracy: "results/accuracy/pilot_mmlu.json"
-  cps:      "results/cps_pilot/{persona1}_{persona2}_{initial}/"
+  table1: "results/table1/{persona}_{initial}.json"
+  table2: "results/table2/{persona1}_{persona2}_{initial}.json"
