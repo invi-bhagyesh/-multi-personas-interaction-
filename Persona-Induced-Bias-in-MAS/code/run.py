@@ -49,7 +49,7 @@ def get_n(cfg):
 def run_prepare_data(cfg):
     import random
     from tqdm import tqdm
-    from prepare_mmlu import load_mmlu, build_tf_entry, generate_local, generate_api
+    from prepare_mmlu import load_mmlu, build_tf_entry, build_tf_entries_parallel, generate_local, generate_api
 
     name = cfg["benchmark"]["name"]
     if name != "mmlu":
@@ -91,14 +91,17 @@ def run_prepare_data(cfg):
         else:
             gen_fn = lambda p: generate_api(p, tfcfg["api_model"])
 
-        tf_records = []
-        for item in tqdm(questions, desc="TF chains"):
-            entry = build_tf_entry(item, gen_fn)
-            if entry:
-                tf_records.append(entry)
-            if len(tf_records) % 50 == 0 and tf_records:
-                with open(tf_out, "w") as f:
-                    json.dump(tf_records, f, indent=4)
+        if tfcfg["model_type"] == "api":
+            tf_records = build_tf_entries_parallel(questions, gen_fn, workers=10)
+        else:
+            tf_records = []
+            for item in tqdm(questions, desc="TF chains"):
+                entry = build_tf_entry(item, gen_fn)
+                if entry:
+                    tf_records.append(entry)
+                if len(tf_records) % 50 == 0 and tf_records:
+                    with open(tf_out, "w") as f:
+                        json.dump(tf_records, f, indent=4)
         with open(tf_out, "w") as f:
             json.dump(tf_records, f, indent=4)
         print(f"  saved {len(tf_records)} TF entries -> {tf_out}")

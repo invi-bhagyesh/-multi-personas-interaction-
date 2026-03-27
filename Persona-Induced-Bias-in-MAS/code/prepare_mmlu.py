@@ -109,6 +109,27 @@ def build_tf_entry(item, generate_fn):
     }
 
 
+def build_tf_entries_parallel(questions, generate_fn, workers=10):
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    results = [None] * len(questions)
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = {pool.submit(build_tf_entry, item, generate_fn): i
+                   for i, item in enumerate(questions)}
+        done = 0
+        for future in as_completed(futures):
+            idx = futures[future]
+            try:
+                results[idx] = future.result()
+            except Exception as e:
+                print(f"  [error] case {idx}: {e}")
+            done += 1
+            if done % 20 == 0:
+                print(f"  {done}/{len(questions)} done")
+
+    return [r for r in results if r is not None]
+
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--step", choices=["questions", "tf", "both"], default="both")
