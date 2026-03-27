@@ -1,20 +1,24 @@
 # Experiment configuration for OpenCharacter persona bias study.
-# Pass this file to run.py:  python code/run.py --config config.yaml
+# Run with:  python code/run.py --config config.yaml
+#
+# Three experiments mirror the original paper (Li et al. 2025):
+#   1. accuracy      — single-agent baseline, one persona per run
+#   2. cps           — pairwise debate, two personas, N turns
+#   3. collaboration — multi-agent (N vs M agents), debate or persuasion task
 
 # ── Model ─────────────────────────────────────────────────────────────────────
 model:
-  # HuggingFace repo containing the LoRA persona adapters
   repo: "maius/llama-3.1-8b-it-personas"
-  # Base model to load adapters on top of
   base_id: "meta-llama/Meta-Llama-3.1-8B-Instruct"
-  # Max new tokens for generation
   max_new_tokens: 512
+  # temperature=0 → do_sample=False (greedy); >0 enables sampling
+  temperature: 0.0
 
 # ── Personas ──────────────────────────────────────────────────────────────────
+# Each OpenCharacter persona is a LoRA adapter subfolder in `model.repo`.
+# null means "all". Set `run` to a list to restrict.
 personas:
-  # Set to null to run all 10 personas
-  # Or list a subset: [sarcasm, sycophancy, nonchalance, mathematical]
-  run: null
+  run: null   # e.g. [sycophancy, sarcasm, nonchalance] or null for all
 
   all:
     - goodness
@@ -28,6 +32,18 @@ personas:
     - sarcasm
     - sycophancy
 
+  # Persona pairs to run for CPS and collaboration experiments.
+  # Each entry is [persona1, persona2].
+  # null = run all combinations from `all` list above.
+  pairs: null
+  # Example subset:
+  # pairs:
+  #   - [sycophancy, sarcasm]
+  #   - [sycophancy, sycophancy]
+  #   - [mathematical, sycophancy]
+  #   - [goodness, sycophancy]
+  #   - [nonchalance, impulsiveness]
+
 # ── Benchmark ─────────────────────────────────────────────────────────────────
 benchmark:
   # "mmlu" or "gpqa"
@@ -39,46 +55,77 @@ benchmark:
       - high_school_chemistry
       - high_school_physics
     split: test
-    # Max total questions across all subjects. null = all available
-    n: 200
+    n: 200   # null = all available
 
   gpqa:
-    # null = all 455 questions
-    n: null
+    n: null  # null = all 455
 
 # ── Data paths ────────────────────────────────────────────────────────────────
 data:
   mmlu_questions: "../data/mmlu_questions.json"
-  mmlu_tf: "../data/mmlu_TF.json"
+  mmlu_tf:        "../data/mmlu_TF.json"
   gpqa_questions: "../data/gpqa_455.json"
-  gpqa_tf: "../data/gpqa_TF.json"
+  gpqa_tf:        "../data/gpqa_TF.json"
+  # Claims dataset for persuasion task
+  claims:         "../data/persuade_cw.json"
 
-# ── Experiments to run ────────────────────────────────────────────────────────
+# ── TF chain generation ───────────────────────────────────────────────────────
+# Used by prepare_data to build the *_TF.json file.
+tf_generation:
+  model_type: local   # "local" (GPU) or "api" (requires KEY module)
+  api_model: gpt      # only used when model_type = api
+
+# ── Experiments ───────────────────────────────────────────────────────────────
 experiments:
-  # Prepare benchmark data (download + generate TF chains). Set to false if
-  # data files already exist.
+
+  # Download benchmark + generate TF reasoning chains.
+  # Set false if data files already exist.
   prepare_data: true
 
-  # Single-persona accuracy baseline (no interaction)
-  accuracy: true
+  # ── Experiment 1: Single-agent accuracy baseline ───────────────────────────
+  # Each persona answers questions independently. No interaction.
+  # Mirrors accuracy.py. Establishes per-persona accuracy floor.
+  accuracy:
+    run: true
 
-  # Trustworthiness & insistence dyadic experiment
+  # ── Experiment 2: Pairwise debate (CPS) ───────────────────────────────────
+  # Two agents with different personas debate a factual question.
+  # Agent1 starts with correct answer (initial=T) or wrong (initial=F).
+  # Mirrors cps.py.
   cps:
     run: true
-    # "trustworthiness", "insistence", or "both"
-    mode: both
-    # Number of debate rounds (1 = single round, mirrors paper §4)
-    turns: 1
+    # Which initial assignments to run: ["T", "F"] or just ["T"]
+    # T = persona1 starts correct, persona2 starts wrong
+    # F = persona1 starts wrong,   persona2 starts correct
+    initial: [T, F]
+    # Turn counts to sweep (mirrors paper ablation N ∈ {1, 4, 8})
+    turns: [1, 4, 8]
 
-# ── TF chain generation (used by prepare_data) ────────────────────────────────
-tf_generation:
-  # "local" = use base_id model on GPU
-  # "api"   = use an API model (requires KEY module)
-  model_type: local
-  api_model: gpt # only used when model_type = api
+  # ── Experiment 3: Multi-agent collaboration / persuasion ──────────────────
+  # Mirrors collaboration.py. Two sub-modes:
+  #   debate    — N agents of persona1 vs M agents of persona2 on a CPS question
+  #   persuasion — 1 persuadee (persona1) vs M persuaders (persona2) on a claim
+  collaboration:
+    run: true
+
+    debate:
+      run: true
+      # Number of agents per side to sweep
+      num_agents: [2, 4]   # num1=num2 (balanced, mirrors paper)
+      initial: [T, F]
+      turns: [4, 8]
+
+    persuasion:
+      run: true
+      # Number of persuaders to sweep (persuadee is always 1 agent)
+      num_persuaders: [1, 2, 3]
+      # Initial stance of persuadee: "support", "oppose", or both
+      initial: [support, oppose]
+      turns: [4, 8]
 
 # ── Output ────────────────────────────────────────────────────────────────────
 output:
   base_dir: "results"
-  accuracy: "results/accuracy/opencharacter_mmlu.json"
-  cps_dir: "results/cps_opencharacter"
+  accuracy: "results/accuracy/opencharacter_{benchmark}.json"
+  cps:      "results/cps/{persona1}_{persona2}_{initial}_turn{turns}/"
+  collab:   "results/collaboration/{task}/{persona1}_{persona2}_{initial}_turn{turns}/"
