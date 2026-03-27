@@ -64,6 +64,12 @@ experiments:
     run: true
     mode: both
     turns: 1
+    # Subset for preliminary CPS results. null = use personas.run/all
+    personas:
+      - sycophancy
+      - sarcasm
+      - mathematical
+      - nonchalance
 
 # ── TF chain generation (used by prepare_data) ────────────────────────────────
 tf_generation:

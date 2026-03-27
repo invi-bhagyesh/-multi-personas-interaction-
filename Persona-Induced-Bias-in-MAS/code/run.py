@@ -151,7 +151,8 @@ def run_accuracy(cfg):
 def run_cps(cfg):
     import cps_opencharacter as cps
 
-    personas = get_personas(cfg)
+    cps_personas = cfg["experiments"]["cps"].get("personas")
+    personas = cps_personas if cps_personas else get_personas(cfg)
     _, tf_path = get_data_paths(cfg)
     n = get_n(cfg)
     mnt = cfg["model"]["max_new_tokens"]
