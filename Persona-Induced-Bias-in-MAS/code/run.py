@@ -17,12 +17,22 @@ import sys
 
 import yaml
 
-sys.path.insert(0, os.path.dirname(__file__))
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.dirname(SCRIPT_DIR)  # Persona-Induced-Bias-in-MAS/
+
+sys.path.insert(0, SCRIPT_DIR)
 
 
 def load_config(path):
     with open(path) as f:
         return yaml.safe_load(f)
+
+
+def resolve_path(rel_path):
+    """Resolve a path relative to PROJECT_DIR (handles ../data/... etc)."""
+    if os.path.isabs(rel_path):
+        return rel_path
+    return os.path.normpath(os.path.join(PROJECT_DIR, "code", rel_path))
 
 
 def resolve_personas(cfg):
@@ -33,9 +43,9 @@ def resolve_data_paths(cfg):
     """Return (questions_path, tf_path)."""
     name = cfg["benchmark"]["name"]
     if name == "mmlu":
-        return cfg["data"]["mmlu_questions"], cfg["data"]["mmlu_tf"]
+        return resolve_path(cfg["data"]["mmlu_questions"]), resolve_path(cfg["data"]["mmlu_tf"])
     elif name == "gpqa":
-        return cfg["data"]["gpqa_questions"], cfg["data"]["gpqa_tf"]
+        return resolve_path(cfg["data"]["gpqa_questions"]), resolve_path(cfg["data"]["gpqa_tf"])
     raise ValueError(f"Unknown benchmark: {name}")
 
 
@@ -59,8 +69,8 @@ def run_prepare_data(cfg):
     random.seed(42)
     bcfg   = cfg["benchmark"]["mmlu"]
     tfcfg  = cfg["tf_generation"]
-    q_out  = cfg["data"]["mmlu_questions"]
-    tf_out = cfg["data"]["mmlu_tf"]
+    q_out  = resolve_path(cfg["data"]["mmlu_questions"])
+    tf_out = resolve_path(cfg["data"]["mmlu_tf"])
     n      = bcfg.get("n")
 
     os.makedirs(os.path.dirname(q_out) or ".", exist_ok=True)
@@ -121,7 +131,7 @@ def run_table1(cfg):
     n         = resolve_n(cfg)
     mnt       = cfg["model"]["max_new_tokens"]
     repo      = cfg["model"]["repo"]
-    out_path  = cfg["output"]["table1"]
+    out_path  = resolve_path(cfg["output"]["table1"])
 
     with open(tf_path) as f:
         data = json.load(f)
@@ -178,7 +188,7 @@ def run_table2(cfg):
     n         = resolve_n(cfg)
     mnt       = cfg["model"]["max_new_tokens"]
     repo      = cfg["model"]["repo"]
-    out_dir   = os.path.dirname(cfg["output"]["table2"])
+    out_dir   = os.path.dirname(resolve_path(cfg["output"]["table2"]))
 
     # Build pair list
     if t2_cfg.get("pairs"):
@@ -205,8 +215,8 @@ def run_table2(cfg):
         )
         results.append(r)
         # checkpoint per pair
-        pair_path = cfg["output"]["table2"].format(
-            persona1=p1, persona2=p2, initial="TF")
+        pair_path = resolve_path(cfg["output"]["table2"].format(
+            persona1=p1, persona2=p2, initial="TF"))
         os.makedirs(os.path.dirname(pair_path) or ".", exist_ok=True)
         with open(pair_path, "w") as f:
             json.dump(r, f, indent=4, default=str)
@@ -263,7 +273,7 @@ EXPERIMENT_MAP = {
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", default="../config.yaml")
+    parser.add_argument("--config", default=os.path.join(PROJECT_DIR, "config.yaml"))
     parser.add_argument("--experiments", nargs="+",
                         choices=list(EXPERIMENT_MAP.keys()), default=None)
     return parser.parse_args()
