@@ -1,0 +1,3418 @@
+[
+    {
+        "case": 0,
+        "claim": "Employee tracking infringes on privacy rights and should face restrictions."
+    },
+    {
+        "case": 1,
+        "claim": "Homework is a waste of time"
+    },
+    {
+        "case": 2,
+        "claim": "We believe in the right to reply"
+    },
+    {
+        "case": 4,
+        "claim": "punishment should fit the criminal"
+    },
+    {
+        "case": 5,
+        "claim": "The UN should be reformed or replaced"
+    },
+    {
+        "case": 6,
+        "claim": "We must have a criminal DNA database"
+    },
+    {
+        "case": 7,
+        "claim": "Religious symbols in public buildings must be banned"
+    },
+    {
+        "case": 8,
+        "claim": "University professor tenure should remain as is"
+    },
+    {
+        "case": 9,
+        "claim": "South Ossetia should be independent"
+    },
+    {
+        "case": 10,
+        "claim": "We must negotiate with terrorists"
+    },
+    {
+        "case": 11,
+        "claim": "Paparazzi and press intrude too much into celebrities lives"
+    },
+    {
+        "case": 12,
+        "claim": "Parents should have the right to do background checks on those looking after their children"
+    },
+    {
+        "case": 13,
+        "claim": "Requiring all police officers to wear body cameras should not be mandated"
+    },
+    {
+        "case": 14,
+        "claim": "Teachers must be banned from interacting with students via social networking websites."
+    },
+    {
+        "case": 15,
+        "claim": "Eliminate All Nuclear Weapons"
+    },
+    {
+        "case": 17,
+        "claim": "Ethiopia is right to build a dam on the River Nile"
+    },
+    {
+        "case": 18,
+        "claim": "The Seychelles should buy territory and relocate due to climate change"
+    },
+    {
+        "case": 19,
+        "claim": "Israel's 2008-2009 military operations against Gaza were justified"
+    },
+    {
+        "case": 20,
+        "claim": "We should support universal basic income"
+    },
+    {
+        "case": 21,
+        "claim": "We should encourage increased use of referendums"
+    },
+    {
+        "case": 22,
+        "claim": "The sale of violent video games/censor violent video games should be illegal"
+    },
+    {
+        "case": 23,
+        "claim": "The minimum wage should be raised to $15 per hour nationwide."
+    },
+    {
+        "case": 24,
+        "claim": "All nations have a right to nuclear weapons"
+    },
+    {
+        "case": 25,
+        "claim": "The Schengen Agreement must be dissolved"
+    },
+    {
+        "case": 26,
+        "claim": "Proportional representation is necessary."
+    },
+    {
+        "case": 27,
+        "claim": "Hosting the world cup is beneficial"
+    },
+    {
+        "case": 29,
+        "claim": "Introduce year round schooling"
+    },
+    {
+        "case": 30,
+        "claim": "The environment is being sacrificed for the economy"
+    },
+    {
+        "case": 31,
+        "claim": "Make all museums free of charge"
+    },
+    {
+        "case": 32,
+        "claim": "Celebrities who commit drug-related offences should be punished more harshly than non-celebrities."
+    },
+    {
+        "case": 33,
+        "claim": "Patents on life-saving drugs should be bypassed"
+    },
+    {
+        "case": 34,
+        "claim": "Alcohol should be banned."
+    },
+    {
+        "case": 35,
+        "claim": "All veto powers of individual EU member states must be lifted"
+    },
+    {
+        "case": 36,
+        "claim": "Any work that is not released under a creative commons license shouldn't be funded"
+    },
+    {
+        "case": 37,
+        "claim": "Children should do part time and summer work"
+    },
+    {
+        "case": 38,
+        "claim": "The Uhuru Kenyatta indictment was an unwelcome interference by the ICC"
+    },
+    {
+        "case": 39,
+        "claim": "Google shouldn\u2019t censor its search results in China"
+    },
+    {
+        "case": 40,
+        "claim": "The United Nations has a responsibility to protect."
+    },
+    {
+        "case": 42,
+        "claim": "A common EU foreign policy should be favored"
+    },
+    {
+        "case": 44,
+        "claim": "Religions Should Not Qualify as Charities"
+    },
+    {
+        "case": 45,
+        "claim": "The world should go vegan"
+    },
+    {
+        "case": 46,
+        "claim": "Bottled water should be banned"
+    },
+    {
+        "case": 47,
+        "claim": "The threat of Climate Change is exaggerated"
+    },
+    {
+        "case": 49,
+        "claim": "We have to employ mercenaries"
+    },
+    {
+        "case": 50,
+        "claim": "Atheism is the only way"
+    },
+    {
+        "case": 51,
+        "claim": "Does campaign finance in the United States need to be fixed?"
+    },
+    {
+        "case": 53,
+        "claim": "Parents of obese children be prosecuted with neglect"
+    },
+    {
+        "case": 55,
+        "claim": "We must let Catalan hold an independence referendum"
+    },
+    {
+        "case": 56,
+        "claim": "Gabon hosting the Africa Cup of Nations was a good thing"
+    },
+    {
+        "case": 57,
+        "claim": "Dictatorship Is the Best Path to Development"
+    },
+    {
+        "case": 58,
+        "claim": "Prohibit retailers from selling certain items at a loss as a marketing device."
+    },
+    {
+        "case": 60,
+        "claim": "Churches should (defined as churches, temples, mosques, synagogues, etc.) remain tax-exempt"
+    },
+    {
+        "case": 61,
+        "claim": "Belief in God is irrational"
+    },
+    {
+        "case": 62,
+        "claim": "France is right to intervene in Mali"
+    },
+    {
+        "case": 63,
+        "claim": "All nations should ban bullfighting"
+    },
+    {
+        "case": 64,
+        "claim": "Oil Companies Should Not Be Allowed To Drill Offshore"
+    },
+    {
+        "case": 65,
+        "claim": "College athletes should not be paid salaries"
+    },
+    {
+        "case": 66,
+        "claim": "Boycott the Euro 2012 in Ukraine unless Yulia Timoshenko is released from prison"
+    },
+    {
+        "case": 67,
+        "claim": "Romeo and Juliet is unsuccessful as a tragedy"
+    },
+    {
+        "case": 68,
+        "claim": "We must all believe in fundamental human rights"
+    },
+    {
+        "case": 69,
+        "claim": "Britain should become a republic"
+    },
+    {
+        "case": 70,
+        "claim": "Governments should ban the media from reporting hostage-taking"
+    },
+    {
+        "case": 71,
+        "claim": "Governments should lower the voting age to 16"
+    },
+    {
+        "case": 73,
+        "claim": "It is fine to kill one to save many"
+    },
+    {
+        "case": 75,
+        "claim": "Students should have to wear school uniforms"
+    },
+    {
+        "case": 76,
+        "claim": "Smoking should be made Illegal"
+    },
+    {
+        "case": 77,
+        "claim": "Social disgust is legitimate grounds for restriction of artistic expression"
+    },
+    {
+        "case": 78,
+        "claim": "Global Warming is not an issue"
+    },
+    {
+        "case": 79,
+        "claim": "Sports Have Became More About Making Money Than Playing Well"
+    },
+    {
+        "case": 80,
+        "claim": "Reality TV has gone too far"
+    },
+    {
+        "case": 81,
+        "claim": "The Death Penalty Should Be Imposed For Acts Of Terror That Cause Death"
+    },
+    {
+        "case": 83,
+        "claim": "We should not slaughter animals which have not been stunned first."
+    },
+    {
+        "case": 84,
+        "claim": "We should directly elect city mayors"
+    },
+    {
+        "case": 85,
+        "claim": "Public high school students in the United States ought not be required to pass standardized exit exams to graduate"
+    },
+    {
+        "case": 86,
+        "claim": "The UN Human Rights Council should be abolished"
+    },
+    {
+        "case": 87,
+        "claim": "People should lose their jobs for saying the wrong thing"
+    },
+    {
+        "case": 88,
+        "claim": "Should Turkey Be Accepted In The EU"
+    },
+    {
+        "case": 89,
+        "claim": "The EU, USA and other western donors should not fund any Palestinian government in which terrorist organisations participate"
+    },
+    {
+        "case": 90,
+        "claim": "Tanzania\u2019s taxation on mobile phones is a good model"
+    },
+    {
+        "case": 93,
+        "claim": "The Spread of Nuclear Weapons: More may be better"
+    },
+    {
+        "case": 94,
+        "claim": "Send Yanukovych to The Hague"
+    },
+    {
+        "case": 95,
+        "claim": "Smartphones/social media should be banned for kids under 16"
+    },
+    {
+        "case": 96,
+        "claim": "Encourage fewer people to go to university"
+    },
+    {
+        "case": 97,
+        "claim": "The right to trial can be limited by jury in some criminal cases"
+    },
+    {
+        "case": 98,
+        "claim": "Recreational drone pilots should not require registration and testing"
+    },
+    {
+        "case": 99,
+        "claim": "People should become vegetarian"
+    },
+    {
+        "case": 100,
+        "claim": "We should fear the power of government over the Internet"
+    },
+    {
+        "case": 101,
+        "claim": "Deny Organs to Non-Donors"
+    },
+    {
+        "case": 102,
+        "claim": "Cyberbullies must be punished with prison even if under 18"
+    },
+    {
+        "case": 104,
+        "claim": "Assisted suicide should be legalized"
+    },
+    {
+        "case": 105,
+        "claim": "Wind farms are a good solution to the energy crisis"
+    },
+    {
+        "case": 106,
+        "claim": "Public health concerns justify compulsory immunization"
+    },
+    {
+        "case": 107,
+        "claim": "Cannabis should be legalised"
+    },
+    {
+        "case": 108,
+        "claim": "It is good to gossip"
+    },
+    {
+        "case": 109,
+        "claim": "Julian Assange is a journalist"
+    },
+    {
+        "case": 110,
+        "claim": "CCTV is a threat to freedom"
+    },
+    {
+        "case": 111,
+        "claim": "Anarchism is a valuable political ideology"
+    },
+    {
+        "case": 112,
+        "claim": "Community radio is good for democracy"
+    },
+    {
+        "case": 113,
+        "claim": "Most people are a little bit gay"
+    },
+    {
+        "case": 114,
+        "claim": "Recreational marijuana should be legal"
+    },
+    {
+        "case": 115,
+        "claim": "Handguns must be banned in Washington D.C."
+    },
+    {
+        "case": 116,
+        "claim": "Evolution has Disproved Creationism"
+    },
+    {
+        "case": 117,
+        "claim": "Vaccination must be made compulsory"
+    },
+    {
+        "case": 118,
+        "claim": "We should support the creation of a Free Trade Area of the Americas"
+    },
+    {
+        "case": 119,
+        "claim": "Accessing your spouse\u2019s email account hacking"
+    },
+    {
+        "case": 120,
+        "claim": "Have no elections rather than sham elections"
+    },
+    {
+        "case": 121,
+        "claim": "Make the raising of business and labour standards a prerequisite for developmental aid"
+    },
+    {
+        "case": 122,
+        "claim": "Teachers should get merit pay"
+    },
+    {
+        "case": 123,
+        "claim": "Build hydroelectric dams"
+    },
+    {
+        "case": 124,
+        "claim": "Financial Assistance for the Poor Should Be the Responsibility of Charities, Not Government"
+    },
+    {
+        "case": 125,
+        "claim": "Sports initiations should be banned"
+    },
+    {
+        "case": 126,
+        "claim": "The United States should continue Its use of drone strikes abroad"
+    },
+    {
+        "case": 127,
+        "claim": "There must be a child curfews"
+    },
+    {
+        "case": 128,
+        "claim": "Representative Democracy Is a Better Form of Government Than Direct Democracy"
+    },
+    {
+        "case": 129,
+        "claim": "China should be allowed more control over its own seas"
+    },
+    {
+        "case": 130,
+        "claim": "Raise The School Leaving Age To 18"
+    },
+    {
+        "case": 131,
+        "claim": "A government has the obligation to lessen the economic gap between its rich and poor citizens"
+    },
+    {
+        "case": 133,
+        "claim": "Cell phone radiation is safe"
+    },
+    {
+        "case": 134,
+        "claim": "The EU should impose a special Europe-wide tax on meat consumption to help save the planet"
+    },
+    {
+        "case": 135,
+        "claim": "The UN should recognize a Palestinian state"
+    },
+    {
+        "case": 136,
+        "claim": "The United States should keep daylight saving time."
+    },
+    {
+        "case": 137,
+        "claim": "The age of consent laws should be lowered"
+    },
+    {
+        "case": 138,
+        "claim": "We have to teach creationism in schools"
+    },
+    {
+        "case": 139,
+        "claim": "Promote safe sex through education at schools"
+    },
+    {
+        "case": 140,
+        "claim": "It is time to stop buying bottled water"
+    },
+    {
+        "case": 141,
+        "claim": "The United States is a \u2018benign\u2019 hegemon"
+    },
+    {
+        "case": 142,
+        "claim": "Celebrities should be exempt from National Service (in South Korea)"
+    },
+    {
+        "case": 144,
+        "claim": "Any society must have a national minimum wage"
+    },
+    {
+        "case": 145,
+        "claim": "Strict parenting works best"
+    },
+    {
+        "case": 146,
+        "claim": "Puerto Rico should seek American statehood"
+    },
+    {
+        "case": 147,
+        "claim": "The Internet must be censored"
+    },
+    {
+        "case": 148,
+        "claim": "Competition in the long run is healthy rather than harmful for the community: GRE issue"
+    },
+    {
+        "case": 149,
+        "claim": "Prescription drug importation should be allowed to increase access and lower costs."
+    },
+    {
+        "case": 150,
+        "claim": "Inheritance tax should be raised to 100% for everyone born in the UK"
+    },
+    {
+        "case": 151,
+        "claim": "Europe still needs a constitution"
+    },
+    {
+        "case": 152,
+        "claim": "The use of child performers should be banned"
+    },
+    {
+        "case": 153,
+        "claim": "Social deprivation causes crime"
+    },
+    {
+        "case": 154,
+        "claim": "America should have universal healthcare"
+    },
+    {
+        "case": 155,
+        "claim": "Genetic modification of unborn babies is unethical and dangerous."
+    },
+    {
+        "case": 156,
+        "claim": "The USA Legal Drinking Age Should Be Lowered to 18 From 21"
+    },
+    {
+        "case": 157,
+        "claim": "Remove Bush tax cuts for the wealthy"
+    },
+    {
+        "case": 158,
+        "claim": "We have to consider a large scale cyber attack an act of war"
+    },
+    {
+        "case": 159,
+        "claim": "Corporations should be required to disclose their climate impacts"
+    },
+    {
+        "case": 160,
+        "claim": "You should join Facebook"
+    },
+    {
+        "case": 161,
+        "claim": "Any vaccines should be required for children"
+    },
+    {
+        "case": 162,
+        "claim": "Criminal justice should focus more on rehabilitation"
+    },
+    {
+        "case": 163,
+        "claim": "Hillary Clinton would make a better president for America"
+    },
+    {
+        "case": 164,
+        "claim": "Remotely Controlled Weapons Systems Should Not Be Used In Combat"
+    },
+    {
+        "case": 165,
+        "claim": "Offshoring is a good idea"
+    },
+    {
+        "case": 166,
+        "claim": "Poetry should not be taught in schools"
+    },
+    {
+        "case": 167,
+        "claim": "Force think tanks to reveal all of their sources of funding"
+    },
+    {
+        "case": 169,
+        "claim": "Newspapers Are a Thing of the Past"
+    },
+    {
+        "case": 170,
+        "claim": "Teachers Should Have The Right To Punish Pupils Physically If The Parents Consent"
+    },
+    {
+        "case": 172,
+        "claim": "Abolish the US Electoral College"
+    },
+    {
+        "case": 173,
+        "claim": "World War III is inevitable"
+    },
+    {
+        "case": 174,
+        "claim": "High taxes are necessary for an effective state"
+    },
+    {
+        "case": 175,
+        "claim": "Allow retailers to import for resale \"grey\" goods from abroad."
+    },
+    {
+        "case": 176,
+        "claim": "Grant the EU a permanent seat on the UN Security Council"
+    },
+    {
+        "case": 177,
+        "claim": "Government should be required to obtain warrants to access data that can be used to track an individual"
+    },
+    {
+        "case": 179,
+        "claim": "Parents should introduce children to alcohol (in moderation) at an early age"
+    },
+    {
+        "case": 180,
+        "claim": "Western companies have to incentivised to build software that provides anonymity to those involved in uprisings"
+    },
+    {
+        "case": 181,
+        "claim": "An international ban should be placed on the export of nuclear reactor technology"
+    },
+    {
+        "case": 182,
+        "claim": "You should always suspend directly delivered foreign development aid"
+    },
+    {
+        "case": 183,
+        "claim": "Less time outdoors is severely detrimental to the physical and emotional wellbeing of children"
+    },
+    {
+        "case": 184,
+        "claim": "Smoking should be banned in public places"
+    },
+    {
+        "case": 186,
+        "claim": "People should have the right to die"
+    },
+    {
+        "case": 187,
+        "claim": "I believe in the Right to be forgotten"
+    },
+    {
+        "case": 191,
+        "claim": "The Minimum Driving Age Should Be Raised to 18"
+    },
+    {
+        "case": 192,
+        "claim": "G20 protests \u2013 at best a waste of time, at worst a dangerous disruption"
+    },
+    {
+        "case": 193,
+        "claim": "Antarctica Should Be Opened Up For Resource Exploitation"
+    },
+    {
+        "case": 195,
+        "claim": "Every child should have a mobile phone."
+    },
+    {
+        "case": 196,
+        "claim": "Defending the enemies of one's nation is legitimate free speech"
+    },
+    {
+        "case": 197,
+        "claim": "Books should have content warnings"
+    },
+    {
+        "case": 198,
+        "claim": "Space should not be used for military purposes"
+    },
+    {
+        "case": 199,
+        "claim": "Animal testing for medical research should be allowed."
+    },
+    {
+        "case": 200,
+        "claim": "Use and Misuse of Internet"
+    },
+    {
+        "case": 201,
+        "claim": "The United States is justified in using private military firms abroad to pursue its military objectives"
+    },
+    {
+        "case": 203,
+        "claim": "Goal line technology has to be adopted in football"
+    },
+    {
+        "case": 204,
+        "claim": "We should prize freedom over security and abolish anti-terrorism legislation"
+    },
+    {
+        "case": 205,
+        "claim": "Net Neutrality \u2013 All Internet Traffic Should Be Treated Equally"
+    },
+    {
+        "case": 206,
+        "claim": "Euthanasia or mercy killing is justified"
+    },
+    {
+        "case": 207,
+        "claim": "Religious education Should be a part of the School curriculum"
+    },
+    {
+        "case": 208,
+        "claim": "A legal qualification is worth the cost"
+    },
+    {
+        "case": 209,
+        "claim": "We should build new nuclear power plants"
+    },
+    {
+        "case": 210,
+        "claim": "Governments be allowed to disrupt Internet service on grounds of national security."
+    },
+    {
+        "case": 211,
+        "claim": "PHILOSOPHY \u2013 Utilitarianism isn\u2019t as fair as it initially seems"
+    },
+    {
+        "case": 212,
+        "claim": "Aid Should Be Tied To Human Rights"
+    },
+    {
+        "case": 213,
+        "claim": "The People\u2019s Republic of China should invade North Korea"
+    },
+    {
+        "case": 214,
+        "claim": "Pay state school teachers based on merit"
+    },
+    {
+        "case": 215,
+        "claim": "We must legalize the use of cell phones in cars"
+    },
+    {
+        "case": 216,
+        "claim": "Actively circumventing Internet censorship is a legitimate foreign policy tool"
+    },
+    {
+        "case": 217,
+        "claim": "We must bring back corporal punishment"
+    },
+    {
+        "case": 218,
+        "claim": "The full financial history of all candidates for political office must be posted online"
+    },
+    {
+        "case": 219,
+        "claim": "Polls are accurate predictors of election results"
+    },
+    {
+        "case": 220,
+        "claim": "History as a subject in school is needed"
+    },
+    {
+        "case": 221,
+        "claim": "Children in developing countries should be sponsored"
+    },
+    {
+        "case": 222,
+        "claim": "Examinations are a fair way of testing our knowledge"
+    },
+    {
+        "case": 224,
+        "claim": "Maths should be a compulsory subject at GCSE"
+    },
+    {
+        "case": 225,
+        "claim": "Hacking Can Be Justified"
+    },
+    {
+        "case": 226,
+        "claim": "Countries with very harsh training methods from participating in international competitions should be banned."
+    },
+    {
+        "case": 227,
+        "claim": "In the conflict between Israel and Palestine, a two-state solution is better justified than a one-state solution"
+    },
+    {
+        "case": 228,
+        "claim": "Free press is vital in democracy"
+    },
+    {
+        "case": 229,
+        "claim": "Parents should be allowed to genetically screen foetuses for heritable diseases"
+    },
+    {
+        "case": 230,
+        "claim": "Cramming before exams is a bad idea"
+    },
+    {
+        "case": 232,
+        "claim": "Smartphones/social media should not be banned for kids under 16"
+    },
+    {
+        "case": 233,
+        "claim": "The European Union should be a trade bloc rather than a political union"
+    },
+    {
+        "case": 234,
+        "claim": "Governments should introduce a flat tax"
+    },
+    {
+        "case": 235,
+        "claim": "University education should be free"
+    },
+    {
+        "case": 236,
+        "claim": "Ban junk food from schools"
+    },
+    {
+        "case": 237,
+        "claim": "Social media platforms have a duty to moderate harmful content."
+    },
+    {
+        "case": 238,
+        "claim": "India should give up Kashmir"
+    },
+    {
+        "case": 239,
+        "claim": "University Fees Should Be Scrapped"
+    },
+    {
+        "case": 240,
+        "claim": "Make lessons in a foreign language compulsory for school pupils"
+    },
+    {
+        "case": 241,
+        "claim": "We must support the use of truth and reconciliation commissions"
+    },
+    {
+        "case": 242,
+        "claim": "We should support enforcing term limits on the executive branch of government"
+    },
+    {
+        "case": 243,
+        "claim": "Student loan debt should be easier to discharge in bankruptcy"
+    },
+    {
+        "case": 244,
+        "claim": "Israel should return to its pre-1967 borders"
+    },
+    {
+        "case": 245,
+        "claim": "UK should have a second Brexit referendum before leaving the EU"
+    },
+    {
+        "case": 246,
+        "claim": "Cultured/lab-grown meats should be allowed to be sold"
+    },
+    {
+        "case": 247,
+        "claim": "Science can determine human values"
+    },
+    {
+        "case": 248,
+        "claim": "A cap-and-trade system is preferable to a carbon tax in reducing carbon emissions"
+    },
+    {
+        "case": 249,
+        "claim": "Performing tests on animals must be banned"
+    },
+    {
+        "case": 250,
+        "claim": "The penny should stay in circulation"
+    },
+    {
+        "case": 251,
+        "claim": "It is a good idea to lease Crimea to Russia"
+    },
+    {
+        "case": 252,
+        "claim": "Allow celebrities to switch off the limelight"
+    },
+    {
+        "case": 254,
+        "claim": "Traditional university has to be replaced by online learning"
+    },
+    {
+        "case": 255,
+        "claim": "The House of Lords should be reformed"
+    },
+    {
+        "case": 257,
+        "claim": "There must be a single European Union army"
+    },
+    {
+        "case": 258,
+        "claim": "Britain should give up its EU rebate"
+    },
+    {
+        "case": 259,
+        "claim": "Store nuclear waste underground"
+    },
+    {
+        "case": 260,
+        "claim": "We can trust Republicans with the economy"
+    },
+    {
+        "case": 261,
+        "claim": "We should give cash to the poor to reduce poverty"
+    },
+    {
+        "case": 262,
+        "claim": "The United Nations budget must be frozen"
+    },
+    {
+        "case": 263,
+        "claim": "Socialism is Dead"
+    },
+    {
+        "case": 264,
+        "claim": "We have to cut the length of copyright protection"
+    },
+    {
+        "case": 265,
+        "claim": "Civil liberties should be sacrificed for the greater good"
+    },
+    {
+        "case": 266,
+        "claim": "Immunity for head of state is a good idea"
+    },
+    {
+        "case": 268,
+        "claim": "Human activity is primarily responsible for global climate change"
+    },
+    {
+        "case": 269,
+        "claim": "Abolish the monarchy."
+    },
+    {
+        "case": 271,
+        "claim": "We should pull out of the Article 98 Agreements that prevent US soldiers from being sent to the ICC for trial"
+    },
+    {
+        "case": 272,
+        "claim": "Private universities in the UK must be encouraged"
+    },
+    {
+        "case": 273,
+        "claim": "Civil society should be granted a wider participation in Africa\u2019s political life"
+    },
+    {
+        "case": 274,
+        "claim": "Wikileaks is not and has never been a non-profit organization"
+    },
+    {
+        "case": 275,
+        "claim": "The Dalai Lama\u2019s \u2018third way\u2019 in Tibet"
+    },
+    {
+        "case": 276,
+        "claim": "Put taxes/revenue from oil into a trust fund independent of politicians influence"
+    },
+    {
+        "case": 277,
+        "claim": "There should be a presumption in favour of publication for information held by public bodies"
+    },
+    {
+        "case": 278,
+        "claim": "Nations of the world should increase protection of the economic and social rights of migrants"
+    },
+    {
+        "case": 279,
+        "claim": "The world has to intervene in Syria to prevent, or respond to, the use of chemical weapons"
+    },
+    {
+        "case": 282,
+        "claim": "Alternative medicine poses a threat to public health"
+    },
+    {
+        "case": 283,
+        "claim": "State funding to universities have to be conditioned upon all academic work being made available to the general public"
+    },
+    {
+        "case": 284,
+        "claim": "Religion In Itself Is A Purely Positive Force In The World"
+    },
+    {
+        "case": 285,
+        "claim": "Those affected by climate change should get compensation"
+    },
+    {
+        "case": 286,
+        "claim": "Chocolate is good for you"
+    },
+    {
+        "case": 287,
+        "claim": "Polygamous Marriage Should Be Recognised"
+    },
+    {
+        "case": 288,
+        "claim": "Homework should have a limit"
+    },
+    {
+        "case": 289,
+        "claim": "Developing nations should place restrictions on rural-urban migration"
+    },
+    {
+        "case": 291,
+        "claim": "Illegal downloaders should be cut off from the internet"
+    },
+    {
+        "case": 292,
+        "claim": "The world has to ignore North Korean provocations"
+    },
+    {
+        "case": 293,
+        "claim": "Football does unify us"
+    },
+    {
+        "case": 294,
+        "claim": "Space Exploration Is a Waste of Money"
+    },
+    {
+        "case": 295,
+        "claim": "Transparency is necessary for security"
+    },
+    {
+        "case": 296,
+        "claim": "It is appropriate to build a muslim community center (aka the ''Ground Zero Mosque'') near the World Trade Center site "
+    },
+    {
+        "case": 297,
+        "claim": "Ten Commandments:  Display in Schools"
+    },
+    {
+        "case": 298,
+        "claim": "All drugs should be decriminalised"
+    },
+    {
+        "case": 299,
+        "claim": "Emotional companion AI poses risks of attachment and should be limited"
+    },
+    {
+        "case": 300,
+        "claim": "It should be allowed to have military recruitment in schools"
+    },
+    {
+        "case": 301,
+        "claim": "Widen the East African Community"
+    },
+    {
+        "case": 302,
+        "claim": "Animals should be used for scientific or commercial testing"
+    },
+    {
+        "case": 303,
+        "claim": "We must support public service broadcasters"
+    },
+    {
+        "case": 304,
+        "claim": "The EU should return power to national governments"
+    },
+    {
+        "case": 305,
+        "claim": "We support the New START Treaty"
+    },
+    {
+        "case": 307,
+        "claim": "Russia is a land of democracy (not autocracy)"
+    },
+    {
+        "case": 308,
+        "claim": "We should give money to beggars"
+    },
+    {
+        "case": 309,
+        "claim": "Use of goal line technology in football is overdue, and can only lead to benefits."
+    },
+    {
+        "case": 310,
+        "claim": "Net neutrality should be restored"
+    },
+    {
+        "case": 311,
+        "claim": "Individuals who have committed atrocities in the Syrian Civil War should be investigated by the ICC"
+    },
+    {
+        "case": 312,
+        "claim": "Self-driving cars will increase safety and should replace human drivers."
+    },
+    {
+        "case": 313,
+        "claim": "We should drop the sanctions against Cuba."
+    },
+    {
+        "case": 314,
+        "claim": "Downloading music without permission is morally equivalent to theft"
+    },
+    {
+        "case": 316,
+        "claim": "People should have a right to private education"
+    },
+    {
+        "case": 317,
+        "claim": "There is a world Water crisis"
+    },
+    {
+        "case": 318,
+        "claim": "Build a third Heathrow runway to maintain its position as a hub airport"
+    },
+    {
+        "case": 319,
+        "claim": "Cease the exploitation of the Arctic Region"
+    },
+    {
+        "case": 320,
+        "claim": "Music should be free for all"
+    },
+    {
+        "case": 321,
+        "claim": "We believe in world government"
+    },
+    {
+        "case": 322,
+        "claim": "Abolish nuclear weapons"
+    },
+    {
+        "case": 323,
+        "claim": "Charter schools divert public funds away from traditional public schools."
+    },
+    {
+        "case": 324,
+        "claim": "Teachers should be armed"
+    },
+    {
+        "case": 325,
+        "claim": "Social media platforms should be liable for harmful content posted by users"
+    },
+    {
+        "case": 328,
+        "claim": "The United Nations has failed"
+    },
+    {
+        "case": 329,
+        "claim": "There should be video replays for refs in football"
+    },
+    {
+        "case": 330,
+        "claim": "US must get rid of the double jeopardy rule"
+    },
+    {
+        "case": 331,
+        "claim": "Leaving the EU would increase British security"
+    },
+    {
+        "case": 332,
+        "claim": "Governments of resource-rich nations should impose high taxes on mining and extraction"
+    },
+    {
+        "case": 333,
+        "claim": "The health benefits of genetically modified foods outweigh their risks"
+    },
+    {
+        "case": 334,
+        "claim": "All literature, art, photography, film and music should be released under Creative Commons licenses"
+    },
+    {
+        "case": 335,
+        "claim": "The breeding of white tigers in captivity should be banned"
+    },
+    {
+        "case": 338,
+        "claim": "Kill One to Save Many"
+    },
+    {
+        "case": 339,
+        "claim": "Job applicants should have to disclose their spent criminal convictions"
+    },
+    {
+        "case": 340,
+        "claim": "Criminal trials should not be televised, and the ICC is no exception"
+    },
+    {
+        "case": 341,
+        "claim": "We should allow death penalty for the worst of the worst criminals"
+    },
+    {
+        "case": 343,
+        "claim": "The world must arm the Syrian rebels"
+    },
+    {
+        "case": 344,
+        "claim": "The use of atomic bombs against Hiroshima and Nagasaki was justified"
+    },
+    {
+        "case": 347,
+        "claim": "Wikipedia is a force for good"
+    },
+    {
+        "case": 348,
+        "claim": "governments should choose open source software in order to encourage its use"
+    },
+    {
+        "case": 350,
+        "claim": "Animals have rights."
+    },
+    {
+        "case": 351,
+        "claim": "Build the Grand Inga Dam"
+    },
+    {
+        "case": 352,
+        "claim": "Creationism should be discussed in school science lessons"
+    },
+    {
+        "case": 353,
+        "claim": "The BBC should be free to blaspheme"
+    },
+    {
+        "case": 354,
+        "claim": "Advertising is harmful"
+    },
+    {
+        "case": 355,
+        "claim": "A Ban on Shark Fin Soup Is Necessary to Protect the Shark from Extinction"
+    },
+    {
+        "case": 356,
+        "claim": "Targeted online advertising on the basis of user profiles and demographics must be banned"
+    },
+    {
+        "case": 358,
+        "claim": "There must be compulsory identity cards"
+    },
+    {
+        "case": 359,
+        "claim": "Healthy eating should be made mandatory"
+    },
+    {
+        "case": 360,
+        "claim": "Major league baseball should continue to allow collisions at home plate"
+    },
+    {
+        "case": 363,
+        "claim": "Fighting should be allowed in hockey."
+    },
+    {
+        "case": 364,
+        "claim": "Neil Armstrong did actually walk on the Moon"
+    },
+    {
+        "case": 365,
+        "claim": "the teacher is always right, even when s/he is not."
+    },
+    {
+        "case": 366,
+        "claim": "Companies should provide alternative interview methods"
+    },
+    {
+        "case": 368,
+        "claim": "Quebec should secede from Canada"
+    },
+    {
+        "case": 369,
+        "claim": "It is worth voting"
+    },
+    {
+        "case": 370,
+        "claim": "Language does control thought"
+    },
+    {
+        "case": 371,
+        "claim": "The United Nations Security Council should be expanded"
+    },
+    {
+        "case": 372,
+        "claim": "African cities need to invest more in housing to replace slums"
+    },
+    {
+        "case": 373,
+        "claim": "Social Media should be part of the curriculum"
+    },
+    {
+        "case": 374,
+        "claim": "Joe Calzaghe deserves to be recognized as one of the greatest boxers of all time"
+    },
+    {
+        "case": 375,
+        "claim": "There is a need for developing tactical nuclear weapons"
+    },
+    {
+        "case": 377,
+        "claim": "Social media platforms should not be liable for harmful content posted by users"
+    },
+    {
+        "case": 378,
+        "claim": "Russia needs strong leadership"
+    },
+    {
+        "case": 379,
+        "claim": "Democracy has to be imposed, if needed"
+    },
+    {
+        "case": 380,
+        "claim": "All countries should have the right to pursue a nuclear defence"
+    },
+    {
+        "case": 381,
+        "claim": "The United States should use the electoral college in presidential elections."
+    },
+    {
+        "case": 382,
+        "claim": "The welfare system should be replaced with a negative income-tax model"
+    },
+    {
+        "case": 383,
+        "claim": "Tennessee is correct to protect teachers who wish to explore the merits of creationism"
+    },
+    {
+        "case": 384,
+        "claim": "Discipline In Schools Needs To Be Improved"
+    },
+    {
+        "case": 385,
+        "claim": "National service should be re-introduced"
+    },
+    {
+        "case": 387,
+        "claim": "Indiscriminate NSA surveillance of the rest of the world hurts the United States"
+    },
+    {
+        "case": 388,
+        "claim": "Police body cameras should be allowed"
+    },
+    {
+        "case": 389,
+        "claim": "Gay marriage should be legal"
+    },
+    {
+        "case": 390,
+        "claim": "1-child policy for every single country in the world!"
+    },
+    {
+        "case": 391,
+        "claim": "Abolish congressional earmarks"
+    },
+    {
+        "case": 392,
+        "claim": "Scotland should cede from the union."
+    },
+    {
+        "case": 393,
+        "claim": "We should be trying to avoid contact with aliens."
+    },
+    {
+        "case": 394,
+        "claim": "Post Office Should Be Privatized"
+    },
+    {
+        "case": 395,
+        "claim": "It does matter where you go to university or college"
+    },
+    {
+        "case": 396,
+        "claim": "Man made climate change is a myth"
+    },
+    {
+        "case": 397,
+        "claim": "UK would have more influence outside the EU"
+    },
+    {
+        "case": 398,
+        "claim": "Prescription drugs are overpriced"
+    },
+    {
+        "case": 399,
+        "claim": "We must use Unmanned Aerial Vehicles to strike terrorist targets"
+    },
+    {
+        "case": 401,
+        "claim": "Roger Federer Is Not the Greatest Tennis Player of All Time"
+    },
+    {
+        "case": 402,
+        "claim": "School Uniforms Should Be Mandatory"
+    },
+    {
+        "case": 403,
+        "claim": "New prisons need to be built to ease overcrowding"
+    },
+    {
+        "case": 404,
+        "claim": "Adaptation should be the most urgent response to Climate Change"
+    },
+    {
+        "case": 405,
+        "claim": "Western democracies should openly try to circumvent Internet censorship in oppressive regimes"
+    },
+    {
+        "case": 406,
+        "claim": "The US should immediately close Guantanamo Bay."
+    },
+    {
+        "case": 408,
+        "claim": "Animals have a right to privacy"
+    },
+    {
+        "case": 409,
+        "claim": "Prescription drug ads should not be allowed on television"
+    },
+    {
+        "case": 410,
+        "claim": "Workers in the Transport Sectors Should Be Banned From Going On Strike"
+    },
+    {
+        "case": 411,
+        "claim": "A \u2018wall\u2019 on the shared USA and Mexico border would be ineffective"
+    },
+    {
+        "case": 412,
+        "claim": "Smoking should further be restricted"
+    },
+    {
+        "case": 414,
+        "claim": "The lack of investment in teachers is the greatest barrier to achieving universal primary education"
+    },
+    {
+        "case": 415,
+        "claim": "Force has to be used to protect human rights abroad"
+    },
+    {
+        "case": 416,
+        "claim": "Plastic Bags should be banned"
+    },
+    {
+        "case": 417,
+        "claim": "Gambling must be banned"
+    },
+    {
+        "case": 418,
+        "claim": "War criminals should be prosecuted"
+    },
+    {
+        "case": 419,
+        "claim": "We must colonize moon"
+    },
+    {
+        "case": 420,
+        "claim": "Individuals have a moral obligation to assist people in need"
+    },
+    {
+        "case": 421,
+        "claim": "The Guantanamo Bay detention centre should be closed"
+    },
+    {
+        "case": 422,
+        "claim": "The integration of Africa through the African Union can succeed"
+    },
+    {
+        "case": 424,
+        "claim": "Hold students legally responsible for bullying if it resulted in the victim's death"
+    },
+    {
+        "case": 425,
+        "claim": "It is a good idea to build the Keystone XL pipeline"
+    },
+    {
+        "case": 426,
+        "claim": "We should be investing in public transport"
+    },
+    {
+        "case": 429,
+        "claim": "We must limit anonymous contributions from corporations and individuals to super PACs"
+    },
+    {
+        "case": 430,
+        "claim": "Recreational drone pilots should be registered and tested"
+    },
+    {
+        "case": 431,
+        "claim": "Abolish the security council veto"
+    },
+    {
+        "case": 432,
+        "claim": "The grammar school system should be reintroduced in the UK"
+    },
+    {
+        "case": 433,
+        "claim": "physical fitness is better than mental fitness"
+    },
+    {
+        "case": 434,
+        "claim": "We must enforce term limits on the legislative branch of government"
+    },
+    {
+        "case": 435,
+        "claim": "Electronic tags are a good idea"
+    },
+    {
+        "case": 436,
+        "claim": "Neo-functionalism explains the integration of the European Union"
+    },
+    {
+        "case": 437,
+        "claim": "The development of genetically modified organisms have to be banned"
+    },
+    {
+        "case": 438,
+        "claim": "Disclose previous convictions in court"
+    },
+    {
+        "case": 439,
+        "claim": "Russia has the right to send troops into Crimea"
+    },
+    {
+        "case": 440,
+        "claim": "Blasphemy has no place on the statute books"
+    },
+    {
+        "case": 441,
+        "claim": "Taking food thrown out by supermarkets should not be illegal"
+    },
+    {
+        "case": 442,
+        "claim": "Parents should not allow young people to live at home again after graduating"
+    },
+    {
+        "case": 443,
+        "claim": "The use of animals as objects of sport and entertainment should be banned."
+    },
+    {
+        "case": 444,
+        "claim": "Everyone should go vegetarian"
+    },
+    {
+        "case": 445,
+        "claim": "Dictatorship is the best path to development"
+    },
+    {
+        "case": 446,
+        "claim": "Social media companies should be required to label AI-generated content"
+    },
+    {
+        "case": 447,
+        "claim": "Allow donations of vital organs even at the expense of the donor's life"
+    },
+    {
+        "case": 449,
+        "claim": "social networking sites should be banned at the workplaces"
+    },
+    {
+        "case": 450,
+        "claim": "The ICC is not an effective deterrent"
+    },
+    {
+        "case": 451,
+        "claim": "Users of extremist websites should be punished"
+    },
+    {
+        "case": 452,
+        "claim": "Children should not be allowed to inherit vast wealth as this damages them and society"
+    },
+    {
+        "case": 453,
+        "claim": "Self-driving cars will not be safe enough to fully replace human drivers."
+    },
+    {
+        "case": 454,
+        "claim": "Internet service providers should be allowed to block access to extremist websites"
+    },
+    {
+        "case": 455,
+        "claim": "Penalise religious hate speech"
+    },
+    {
+        "case": 456,
+        "claim": "Rain Man is such a bad image of autism"
+    },
+    {
+        "case": 457,
+        "claim": "We should legalize drugs"
+    },
+    {
+        "case": 458,
+        "claim": "Banning gas car sales too soon is unrealistic"
+    },
+    {
+        "case": 459,
+        "claim": "Britain should adopt Sharia law"
+    },
+    {
+        "case": 460,
+        "claim": "The best way to protect Scottish interests in the EU is to vote for independence"
+    },
+    {
+        "case": 461,
+        "claim": "Anti-aging therapies should be made available even if expensive"
+    },
+    {
+        "case": 462,
+        "claim": "We should dramatically increase the rate of income tax paid by the rich"
+    },
+    {
+        "case": 463,
+        "claim": "Chess must be at the Olympics"
+    },
+    {
+        "case": 464,
+        "claim": "States ought not possess nuclear weapons"
+    },
+    {
+        "case": 465,
+        "claim": "We should encourage building the Hyperloop"
+    },
+    {
+        "case": 466,
+        "claim": "Receiving multiple vaccines are safe"
+    },
+    {
+        "case": 467,
+        "claim": "People should be allowed to sell their own organs"
+    },
+    {
+        "case": 468,
+        "claim": "Parents have to be allowed to monitor their children's online and mobile communications"
+    },
+    {
+        "case": 469,
+        "claim": "The agreement between Russia and Great Britain in 1907 was inevitable"
+    },
+    {
+        "case": 470,
+        "claim": "The American Jobs Act should pass"
+    },
+    {
+        "case": 472,
+        "claim": "Terrorism can be justified"
+    },
+    {
+        "case": 474,
+        "claim": "Christianity is the greatest deception of today"
+    },
+    {
+        "case": 475,
+        "claim": "The United States should ban assault weapons"
+    },
+    {
+        "case": 476,
+        "claim": "Gorbachev was a key player in the fall of the Berlin Wall"
+    },
+    {
+        "case": 477,
+        "claim": "Wikileaks is a threat to national security"
+    },
+    {
+        "case": 478,
+        "claim": "The International Criminal Court is a force for good"
+    },
+    {
+        "case": 479,
+        "claim": "Professional sportsmen must be required to represent their countries at the international level"
+    },
+    {
+        "case": 480,
+        "claim": "Pensions should be privatised"
+    },
+    {
+        "case": 481,
+        "claim": "Mixed Martial Arts (UFC) is a form of human cockfighting"
+    },
+    {
+        "case": 483,
+        "claim": "Post conflict peace cannot be sustained without impartial justice"
+    },
+    {
+        "case": 484,
+        "claim": "Obese people, in countries with a national health service, should face higher taxes"
+    },
+    {
+        "case": 485,
+        "claim": "Fund education using a voucher scheme"
+    },
+    {
+        "case": 486,
+        "claim": "Governments Should Pay Compensation For Terrorist Atrocities Carried Out By Their Citizens"
+    },
+    {
+        "case": 487,
+        "claim": "Socialism is a failed government subdomain"
+    },
+    {
+        "case": 488,
+        "claim": "Allow voting at 16 in European Parliament elections"
+    },
+    {
+        "case": 489,
+        "claim": "Social media should verify user identities"
+    },
+    {
+        "case": 490,
+        "claim": "Hate speech on campus has to censored"
+    },
+    {
+        "case": 491,
+        "claim": "Democracies should ban the display of communist and Nazi symbols"
+    },
+    {
+        "case": 492,
+        "claim": "We should legalise the growing of coca leaf"
+    },
+    {
+        "case": 493,
+        "claim": "We should use torture to obtain information from suspected terrorists"
+    },
+    {
+        "case": 495,
+        "claim": "We have to offer amnesty to bloggers currently prosecuted by their native states"
+    },
+    {
+        "case": 496,
+        "claim": "The USA's social security schemes should be privatized"
+    },
+    {
+        "case": 497,
+        "claim": "The Falklands should be given back to Argentina"
+    },
+    {
+        "case": 498,
+        "claim": "We should be free to express our religion as we wish"
+    },
+    {
+        "case": 499,
+        "claim": "Government must be Big and Beefy"
+    },
+    {
+        "case": 501,
+        "claim": "Drones Should Be Used to Take Out Enemy Combatants"
+    },
+    {
+        "case": 502,
+        "claim": "Catcher in the Rye is a bad book"
+    },
+    {
+        "case": 504,
+        "claim": "Liberal democracies are better at providing people\u2019s needs than non-democracies."
+    },
+    {
+        "case": 505,
+        "claim": "Voting should be compulsory in the UK"
+    },
+    {
+        "case": 506,
+        "claim": "We must grant those diagnosed with terminal illnesses the right to access treatments that have not completed clinical testing"
+    },
+    {
+        "case": 507,
+        "claim": "Bribery is sometimes acceptable"
+    },
+    {
+        "case": 508,
+        "claim": "Federal States are better than unitary nations"
+    },
+    {
+        "case": 509,
+        "claim": "The UK would be better off economically outside the European Union"
+    },
+    {
+        "case": 512,
+        "claim": "The African Union can meet its pledge to end all war on the continent by 2020"
+    },
+    {
+        "case": 513,
+        "claim": "Anti-Bribery Laws On Corporations Should Be Abolished"
+    },
+    {
+        "case": 514,
+        "claim": "Using Rewards to Motivate Students"
+    },
+    {
+        "case": 515,
+        "claim": "We should believe in corporal punishment for adult offenders"
+    },
+    {
+        "case": 516,
+        "claim": "It is selfish to have more than two children"
+    },
+    {
+        "case": 517,
+        "claim": "Terrorists Should Be Subject to the Geneva Conventions"
+    },
+    {
+        "case": 519,
+        "claim": "Capitalism is better than socialism"
+    },
+    {
+        "case": 520,
+        "claim": "Religion is not necessary"
+    },
+    {
+        "case": 521,
+        "claim": "The Arab Spring revolutions can create stable democracies."
+    },
+    {
+        "case": 523,
+        "claim": "The drinking age should be lowered from 21 to a younger age"
+    },
+    {
+        "case": 524,
+        "claim": "All patents should be removed on anti-retroviral drugs to fight AIDS"
+    },
+    {
+        "case": 525,
+        "claim": "A celebrity would make a good minister"
+    },
+    {
+        "case": 526,
+        "claim": "Pre-nuptial agreements should not be recognised in divorce courts"
+    },
+    {
+        "case": 527,
+        "claim": "Mandatory sentencing is fine."
+    },
+    {
+        "case": 528,
+        "claim": "Sanctions should be used to promote democracy"
+    },
+    {
+        "case": 529,
+        "claim": "It is necessary to offer increased aid to developing world countries that encourage and accept large influxes of immigrants"
+    },
+    {
+        "case": 530,
+        "claim": "Internet access is a human right"
+    },
+    {
+        "case": 532,
+        "claim": "Keep the Sabbath as a Day of Rest"
+    },
+    {
+        "case": 535,
+        "claim": "The media\u2019s selective coverage of certain issues works to worsen problems in society and create problems"
+    },
+    {
+        "case": 536,
+        "claim": "Restrict the right to Habeas Corpus as part of efforts to combat terrorism"
+    },
+    {
+        "case": 537,
+        "claim": "Terrorism should not be allowed publicity"
+    },
+    {
+        "case": 538,
+        "claim": "Grant politicians immunity from prosecution"
+    },
+    {
+        "case": 539,
+        "claim": "Physical Chastisement of Children Should Be Illegal"
+    },
+    {
+        "case": 540,
+        "claim": "Space tourism should be allowed without initial limits on safety regulations"
+    },
+    {
+        "case": 541,
+        "claim": "Replace aid with remittances"
+    },
+    {
+        "case": 542,
+        "claim": "Experience is the key success for entrepreneurship."
+    },
+    {
+        "case": 543,
+        "claim": "Charter schools increase options and drive education innovation."
+    },
+    {
+        "case": 544,
+        "claim": " College education is worth it"
+    },
+    {
+        "case": 545,
+        "claim": "ID cards and the National Identity Register should be scrapped"
+    },
+    {
+        "case": 546,
+        "claim": "Heavy drinkers should be denied liver transplants"
+    },
+    {
+        "case": 547,
+        "claim": "Labels on food must be mandated to encourage people to eat better"
+    },
+    {
+        "case": 548,
+        "claim": "Nuclear technology must be adopted"
+    },
+    {
+        "case": 549,
+        "claim": "German prosecutors should investigate NSA surveillance of Angela Merkel"
+    },
+    {
+        "case": 550,
+        "claim": "We should make new years resolutions"
+    },
+    {
+        "case": 551,
+        "claim": "The iPhone is better than the Blackberry"
+    },
+    {
+        "case": 552,
+        "claim": "Rail travel is the best mode of transport for the future"
+    },
+    {
+        "case": 553,
+        "claim": "NATO has succeeded in Afghanistan"
+    },
+    {
+        "case": 554,
+        "claim": "Employees Should Be Compelled To Disclose Their HIV Status to Employers"
+    },
+    {
+        "case": 555,
+        "claim": "We should force feed sufferers of Anorexia Nervosa"
+    },
+    {
+        "case": 556,
+        "claim": "The Gulf States should take in more Syrian refugees"
+    },
+    {
+        "case": 557,
+        "claim": "Adults should have the right to carry a concealed handgun"
+    },
+    {
+        "case": 558,
+        "claim": "Turkey is not a democracy"
+    },
+    {
+        "case": 559,
+        "claim": "Golf is a Sport"
+    },
+    {
+        "case": 560,
+        "claim": "School uniforms must be banned"
+    },
+    {
+        "case": 561,
+        "claim": "Create a National High Speed Rail System in the U.S."
+    },
+    {
+        "case": 562,
+        "claim": "Children should be allowed to have facebook accounts"
+    },
+    {
+        "case": 563,
+        "claim": "The UN should impose sanctions on countries that destroy their rainforests"
+    },
+    {
+        "case": 564,
+        "claim": "Allow pharmaceutical companies to advertise directly to consumers"
+    },
+    {
+        "case": 565,
+        "claim": "We should restrict violent video games"
+    },
+    {
+        "case": 566,
+        "claim": "Faith schools must be banned"
+    },
+    {
+        "case": 567,
+        "claim": "Hosting the Olympics is a good investment"
+    },
+    {
+        "case": 568,
+        "claim": "The voting age should be lowered to 16"
+    },
+    {
+        "case": 569,
+        "claim": "We must extend NATO membership to Georgia and Ukraine"
+    },
+    {
+        "case": 570,
+        "claim": "Junk Food Should Be Banned"
+    },
+    {
+        "case": 571,
+        "claim": "Music containing lyrics that glorify violent and criminal lifestyles should be banned"
+    },
+    {
+        "case": 572,
+        "claim": "Romeo and Juliet do promote knife crime"
+    },
+    {
+        "case": 573,
+        "claim": "All our actions are determined in some way"
+    },
+    {
+        "case": 574,
+        "claim": "The US and its allies were justified in taking military action against Iraq following Iraq\u2019s invasion of Kuwait"
+    },
+    {
+        "case": 575,
+        "claim": "Institute a mandatory retirement age"
+    },
+    {
+        "case": 576,
+        "claim": "Implent the Virtual Doctor Project in Zambia"
+    },
+    {
+        "case": 577,
+        "claim": "It is sometimes right for the government to restrict freedom of speech"
+    },
+    {
+        "case": 578,
+        "claim": "A \u201cfat tax\u201d should be introduced."
+    },
+    {
+        "case": 579,
+        "claim": "Violent video games cause violent crime"
+    },
+    {
+        "case": 580,
+        "claim": "Corporations\u2019 Use of IP Laws in Relation to Event Sponsorship Poses a Threat to Freedom of Expression"
+    },
+    {
+        "case": 581,
+        "claim": "EU member states should guarantee people under 25 a temporary workplace when they have been unemployed for six months"
+    },
+    {
+        "case": 582,
+        "claim": "Universities should make all academic work they produce, including scholarly articles, course handbooks and recorded lectures, available to the general public"
+    },
+    {
+        "case": 583,
+        "claim": "Intellectual property rights have to be abolished"
+    },
+    {
+        "case": 584,
+        "claim": "Place Cameras in Courtrooms to Televise Court Cases"
+    },
+    {
+        "case": 585,
+        "claim": "We must have weapons inspectors leave Syria"
+    },
+    {
+        "case": 586,
+        "claim": "Music That Glorifies Crime Should Be Banned"
+    },
+    {
+        "case": 588,
+        "claim": "Launching a military coup against a democratic government can be justified"
+    },
+    {
+        "case": 589,
+        "claim": "Technological advancement promotes materialistic society"
+    },
+    {
+        "case": 590,
+        "claim": "The money we spend on our Olympic medal count is money well spent"
+    },
+    {
+        "case": 591,
+        "claim": "Gay couples should be allowed to marry"
+    },
+    {
+        "case": 592,
+        "claim": "Britain should scrap the monarchy"
+    },
+    {
+        "case": 593,
+        "claim": "Illegal immigrants must be given drivers licenses"
+    },
+    {
+        "case": 594,
+        "claim": "Hosting the Olympic Games is beneficial"
+    },
+    {
+        "case": 595,
+        "claim": "Everyone Should Automatically Be Opted into an Organ Donation Scheme"
+    },
+    {
+        "case": 596,
+        "claim": "Film stars, music stars and other popular entertainers should not be participating in party-political campaigns"
+    },
+    {
+        "case": 597,
+        "claim": "The world should re-engage with Myanmar"
+    },
+    {
+        "case": 598,
+        "claim": "Gorbachev Was Responsible for The Collapse Of The USSR"
+    },
+    {
+        "case": 599,
+        "claim": "There Should be a Minimum Weight Limit For Professional Models"
+    },
+    {
+        "case": 600,
+        "claim": "Prioritize eliminating the budget deficit over increasing domestic spending"
+    },
+    {
+        "case": 601,
+        "claim": "Treat the desecration and destruction of high-value sites and property of cultural heritage as a crime against humanity"
+    },
+    {
+        "case": 602,
+        "claim": "There should be no permanent members of the UN Security Council"
+    },
+    {
+        "case": 603,
+        "claim": "Danish newspapers should not have published cartoons depicting the Prophet Mohammed"
+    },
+    {
+        "case": 604,
+        "claim": "We must disband NATO"
+    },
+    {
+        "case": 606,
+        "claim": "Online Shopping Is Better Than Offline Shopping"
+    },
+    {
+        "case": 607,
+        "claim": "Governments should prioritise spending money on youth"
+    },
+    {
+        "case": 608,
+        "claim": "More gun control laws should be enacted"
+    },
+    {
+        "case": 609,
+        "claim": "Sanctuary cities are beneficial"
+    },
+    {
+        "case": 610,
+        "claim": "The Egyptian army was right to depose Morsi"
+    },
+    {
+        "case": 611,
+        "claim": "DNA testing is worth the money"
+    },
+    {
+        "case": 612,
+        "claim": "Social media platforms should not censor any legal speech."
+    },
+    {
+        "case": 613,
+        "claim": "Playoffs must be implemented in collegiate level american football"
+    },
+    {
+        "case": 614,
+        "claim": "Parents should be held responsible for their school-going children's discipline problems"
+    },
+    {
+        "case": 615,
+        "claim": "Deregulation and tax cuts should be embraced to lead the world out of economic crisis."
+    },
+    {
+        "case": 616,
+        "claim": "HIV/AIDS: There Should Be Compulsory Testing and Labeling of People with HIV"
+    },
+    {
+        "case": 617,
+        "claim": "Governments should spend their way out of the recession"
+    },
+    {
+        "case": 618,
+        "claim": "Online gambling has to be banned"
+    },
+    {
+        "case": 620,
+        "claim": "South Africa should host an Olympics"
+    },
+    {
+        "case": 621,
+        "claim": "Physical Education In Schools Should Be Compulsory"
+    },
+    {
+        "case": 622,
+        "claim": "Corporations are a threat to Democracy and society."
+    },
+    {
+        "case": 623,
+        "claim": "You should never have children"
+    },
+    {
+        "case": 624,
+        "claim": "Climate Change is the end of the world"
+    },
+    {
+        "case": 625,
+        "claim": "Increased taxes are good for America"
+    },
+    {
+        "case": 626,
+        "claim": "Climate geoengineering research should be pursued as a potential solution."
+    },
+    {
+        "case": 627,
+        "claim": "It is crucial to explore the universe"
+    },
+    {
+        "case": 628,
+        "claim": "International students are charged unfairly high tuition fees at UK universities"
+    },
+    {
+        "case": 629,
+        "claim": "The world should intervene to prevent the collapse of the state in other countries"
+    },
+    {
+        "case": 630,
+        "claim": "Water Should Be Owned And Supplied By The State"
+    },
+    {
+        "case": 631,
+        "claim": "Abolish the Superdelegate System for Democratic Party Conventions"
+    },
+    {
+        "case": 632,
+        "claim": "The EU should engage in further enlargement"
+    },
+    {
+        "case": 633,
+        "claim": "University education needs to be capped and more selective"
+    },
+    {
+        "case": 634,
+        "claim": "Lowering the federal corporate income tax rate does create jobs"
+    },
+    {
+        "case": 635,
+        "claim": "A new global body, the United Nations Committee for Internet Related Policies, take over internet governance."
+    },
+    {
+        "case": 636,
+        "claim": "Act to regulate the activities of Sovereign Wealth Funds"
+    },
+    {
+        "case": 638,
+        "claim": "Mexican culture was incurably damaged by the introduction of Christianity"
+    },
+    {
+        "case": 640,
+        "claim": "Any job is better than no job"
+    },
+    {
+        "case": 641,
+        "claim": "Gas car sales should be banned after a set phase-out date"
+    },
+    {
+        "case": 642,
+        "claim": "School Day Should Be Extended"
+    },
+    {
+        "case": 643,
+        "claim": "Basic income tax should be abolished"
+    },
+    {
+        "case": 645,
+        "claim": "The U.S. Should Ban The Use of Cluster Bombs"
+    },
+    {
+        "case": 646,
+        "claim": "All third world debt should be dropped"
+    },
+    {
+        "case": 647,
+        "claim": "We should show more compassion to drug addicts"
+    },
+    {
+        "case": 648,
+        "claim": "Do not allow companies to collect/sell the personal data of their clients"
+    },
+    {
+        "case": 649,
+        "claim": "Homework should be banned."
+    },
+    {
+        "case": 650,
+        "claim": "Valentines Day is just a Hallmark ploy"
+    },
+    {
+        "case": 651,
+        "claim": "Taxes on smoothies and fruit juices should be reduced"
+    },
+    {
+        "case": 652,
+        "claim": "Attorney-client privilege should be abolished"
+    },
+    {
+        "case": 653,
+        "claim": "Children Should Have The Right To Vote In Elections"
+    },
+    {
+        "case": 654,
+        "claim": "School vouchers should be encouraged"
+    },
+    {
+        "case": 655,
+        "claim": "Should the United States increase the foreign aid budget?"
+    },
+    {
+        "case": 656,
+        "claim": "Mind Sports Such as Chess, Quizzing and Debating Should Be Olympic Sports"
+    },
+    {
+        "case": 657,
+        "claim": "The teaching of Shakespeare should be compulsory"
+    },
+    {
+        "case": 658,
+        "claim": "Books will be replaced at some point"
+    },
+    {
+        "case": 660,
+        "claim": "We have lost the true meaning of Christmas"
+    },
+    {
+        "case": 662,
+        "claim": "European Parliament elections should involve only one voting district: all of Europe and not separate country seats"
+    },
+    {
+        "case": 663,
+        "claim": "Provide breakfast for all school students"
+    },
+    {
+        "case": 665,
+        "claim": "The civil procedure rules allow for a \u2018fair trial\u2019"
+    },
+    {
+        "case": 666,
+        "claim": "Home Schooling Should Be Banned"
+    },
+    {
+        "case": 667,
+        "claim": "Working from home is better for companies than maintaining an office"
+    },
+    {
+        "case": 668,
+        "claim": "Islamic State/Daesh is the most significant threat to the west"
+    },
+    {
+        "case": 669,
+        "claim": "Guinea-Bissau should not let itself be turned in to a front of the US\u2019 \"war on drugs\""
+    },
+    {
+        "case": 670,
+        "claim": "permit the use of performance enhancing drugs in professional sports"
+    },
+    {
+        "case": 671,
+        "claim": "Prescription drug ads should be allowed on television"
+    },
+    {
+        "case": 672,
+        "claim": "Children should be banned from watching shows that contain violence and other adult contents"
+    },
+    {
+        "case": 673,
+        "claim": "Prisoners Should Be Used For Medical Experiments Without Consent"
+    },
+    {
+        "case": 674,
+        "claim": "Animals should be kept in zoos"
+    },
+    {
+        "case": 675,
+        "claim": "African leaders should be transparent about their health"
+    },
+    {
+        "case": 677,
+        "claim": "People receiving welfare benefits should be tracked to prevent fraud/abuse."
+    },
+    {
+        "case": 678,
+        "claim": "Capital punishment should be abolished in Africa"
+    },
+    {
+        "case": 679,
+        "claim": "The D.A.R.E. program is good for America's kids (K-12) "
+    },
+    {
+        "case": 681,
+        "claim": "Ban the use of trans fats in food stuffs"
+    },
+    {
+        "case": 682,
+        "claim": "Unilateral nuclear disarmament is the best way to create a safer world"
+    },
+    {
+        "case": 683,
+        "claim": "Switzerland and Norway should apply to join the EU"
+    },
+    {
+        "case": 684,
+        "claim": "The Church of England should be separated from the British state."
+    },
+    {
+        "case": 685,
+        "claim": "The payment of welfare benefits to parents should be tied to their children's school attendance records"
+    },
+    {
+        "case": 686,
+        "claim": "The United States\u2019 individual health insurance mandate is unconstitutional"
+    },
+    {
+        "case": 687,
+        "claim": "Commercialization of Festivals and Holidays Has Eroded Their Real Significance"
+    },
+    {
+        "case": 688,
+        "claim": "Rupert Murdoch is not a fit person to run an international media corporation"
+    },
+    {
+        "case": 689,
+        "claim": "New York City has the right to regulate the size of sodas bought on the market"
+    },
+    {
+        "case": 690,
+        "claim": "That Israel\u2019s West Bank Settlements are an Obstacle to Peace"
+    },
+    {
+        "case": 691,
+        "claim": "Virtual emotional companion AI should be allowed and unrestricted"
+    },
+    {
+        "case": 692,
+        "claim": "It is fine to do random drug-testing in schools"
+    },
+    {
+        "case": 693,
+        "claim": "Create a UN standing army"
+    },
+    {
+        "case": 694,
+        "claim": "We should make education compulsory to degree level"
+    },
+    {
+        "case": 695,
+        "claim": "Power only has two dimensions"
+    },
+    {
+        "case": 696,
+        "claim": "It is important to use foreign aid funds to research and distribute software that allows bloggers and journalists in non-democratic countries to evade censorship and conceal their online activities."
+    },
+    {
+        "case": 697,
+        "claim": "During riots it might make sense to block access to social messaging networks"
+    },
+    {
+        "case": 698,
+        "claim": "The Private Education System Should Be Abolished"
+    },
+    {
+        "case": 699,
+        "claim": "The Illegality Of Recreational Drugs Does More Harm Than Good"
+    },
+    {
+        "case": 700,
+        "claim": "Sikh school pupils should be allowed to carry ceremonial daggers"
+    },
+    {
+        "case": 701,
+        "claim": "Obesity is a disease"
+    },
+    {
+        "case": 702,
+        "claim": "Governments Should Put Wealth Redistribution Ahead Of Wealth Creation"
+    },
+    {
+        "case": 703,
+        "claim": "The Western intervention in Libya has been a success"
+    },
+    {
+        "case": 704,
+        "claim": "There must be referendums held on any new EU treaty"
+    },
+    {
+        "case": 705,
+        "claim": "Internet access should be considered a basic human right"
+    },
+    {
+        "case": 706,
+        "claim": "Europe should be federal"
+    },
+    {
+        "case": 707,
+        "claim": "Smokers should be denied access to state healthcare"
+    },
+    {
+        "case": 708,
+        "claim": "The West should invade Syria"
+    },
+    {
+        "case": 709,
+        "claim": "The sale of children\u2019s toys as part of fast food meals must be prohobited."
+    },
+    {
+        "case": 710,
+        "claim": "There Is a Mathematical Miracle in the Quran That Proves It Is the Word of God"
+    },
+    {
+        "case": 711,
+        "claim": "Tracking welfare recipients violates privacy and harms vulnerable populations."
+    },
+    {
+        "case": 712,
+        "claim": "The right to anonymous posting on the internet should be protected by law"
+    },
+    {
+        "case": 713,
+        "claim": "Humans should eat meat"
+    },
+    {
+        "case": 714,
+        "claim": "Animal testing should be banned."
+    },
+    {
+        "case": 715,
+        "claim": "There should be a legally mandated ceiling on weekly working hours"
+    },
+    {
+        "case": 716,
+        "claim": "Stop sending development aid to India"
+    },
+    {
+        "case": 717,
+        "claim": "Africa is really rising"
+    },
+    {
+        "case": 718,
+        "claim": "Google is the extremely reliable source of information"
+    },
+    {
+        "case": 719,
+        "claim": "No limits should be placed on acceptable human risk for initial Mars colonization missions"
+    },
+    {
+        "case": 720,
+        "claim": "English has to become the official language of the United States"
+    },
+    {
+        "case": 721,
+        "claim": "Historical Artefacts Should Be Repatriated to Their Country of Origin"
+    },
+    {
+        "case": 722,
+        "claim": "Sao Tome would drop relations with Taiwan in favour of Mainland China"
+    },
+    {
+        "case": 723,
+        "claim": "All police officers should be required to wear body cameras"
+    },
+    {
+        "case": 724,
+        "claim": "Corporal Punishment Should Be Reintroduced"
+    },
+    {
+        "case": 725,
+        "claim": "The internet\u2019s anonymity is beneficial"
+    },
+    {
+        "case": 726,
+        "claim": "Tunisia should not rely on tourism for economic growth"
+    },
+    {
+        "case": 727,
+        "claim": "The United States should maintain its embargo against Cuba"
+    },
+    {
+        "case": 728,
+        "claim": "Capitalism is creating an expanding gap between the rich and the poor"
+    },
+    {
+        "case": 729,
+        "claim": "We must ban negative advertising in political campaigns"
+    },
+    {
+        "case": 730,
+        "claim": "Visitors to museums should be \u201cencouraged\u201d to pay a voluntary entrance fee"
+    },
+    {
+        "case": 731,
+        "claim": "Violent Video Games Contribute to Youth Violence"
+    },
+    {
+        "case": 732,
+        "claim": "The United States was correct in going to war against North Korea in support of their territory of South Korea."
+    },
+    {
+        "case": 733,
+        "claim": "All evidence gathered by intelligence agencies should be admissible in courts of law"
+    },
+    {
+        "case": 734,
+        "claim": "Create an international treaty/ban on cyber-attacks"
+    },
+    {
+        "case": 735,
+        "claim": "Terrorists should be subject to the Geneva Conventions"
+    },
+    {
+        "case": 736,
+        "claim": "German unification has been a success"
+    },
+    {
+        "case": 737,
+        "claim": "Raising the minimum wage to $15 would hurt small businesses and jobs."
+    },
+    {
+        "case": 739,
+        "claim": "Geoengineering poses too many risks and should not be considered."
+    },
+    {
+        "case": 740,
+        "claim": "Public Transport Should Be Free"
+    },
+    {
+        "case": 741,
+        "claim": "We should ban the depiction of smoking in films"
+    },
+    {
+        "case": 742,
+        "claim": "Sadomasochism must be decriminalized"
+    },
+    {
+        "case": 744,
+        "claim": "The EU should abandon the Common Agricultural Policy"
+    },
+    {
+        "case": 745,
+        "claim": "Poverty is the most important security issue facing Africa"
+    },
+    {
+        "case": 746,
+        "claim": "Limits should be placed on acceptable human risk levels for initial Mars colonization missions"
+    },
+    {
+        "case": 747,
+        "claim": "Poorer Countries Should Abandon Free Trade Agreements"
+    },
+    {
+        "case": 748,
+        "claim": "US must help in fighting terrorist organisations in Africa"
+    },
+    {
+        "case": 749,
+        "claim": "Social Security should be privatized "
+    },
+    {
+        "case": 750,
+        "claim": "The European Union should adopt a single working language through which to operate."
+    },
+    {
+        "case": 751,
+        "claim": "In a democracy all votes should be equal."
+    },
+    {
+        "case": 752,
+        "claim": "politicians have no right to privacy"
+    },
+    {
+        "case": 753,
+        "claim": "It makes sense to drive to an out of town to a shopping centre"
+    },
+    {
+        "case": 754,
+        "claim": "USA must sign the Ottawa Convention banning landmines"
+    },
+    {
+        "case": 755,
+        "claim": "Cultural property residing in museums must be returned to its place of origin"
+    },
+    {
+        "case": 756,
+        "claim": "Remove the requirement for Catholic Priests to take a vow of celibacy"
+    },
+    {
+        "case": 757,
+        "claim": "Media reporting on violent crimes should be restricted"
+    },
+    {
+        "case": 758,
+        "claim": "A nation's history and mythology is part of its national security"
+    },
+    {
+        "case": 759,
+        "claim": "Throw Russia out of the G8"
+    },
+    {
+        "case": 760,
+        "claim": "Co2 Does Not Cause Global Warming"
+    },
+    {
+        "case": 761,
+        "claim": "Civil Disobedience Can Be Justified"
+    },
+    {
+        "case": 762,
+        "claim": "Christmas is a scam"
+    },
+    {
+        "case": 763,
+        "claim": "Unemployment benefit should be paid in the form of vouchers for food, shelter and the basics of life"
+    },
+    {
+        "case": 764,
+        "claim": "Anti-Social Behaviour Orders (UK) must be scraped"
+    },
+    {
+        "case": 765,
+        "claim": "Arming the police is a good idea"
+    },
+    {
+        "case": 766,
+        "claim": "Religion does more harm than good"
+    },
+    {
+        "case": 767,
+        "claim": "Endangered species should be protected"
+    },
+    {
+        "case": 768,
+        "claim": "Prosecutions help the healing process"
+    },
+    {
+        "case": 769,
+        "claim": "A move to the left is good for Labour"
+    },
+    {
+        "case": 770,
+        "claim": "Ghana\u2019s ban on smoking in public places is a model for Africa"
+    },
+    {
+        "case": 771,
+        "claim": "The outcome of the Paris Climate Conference needs to be an international treaty with binding emission cuts"
+    },
+    {
+        "case": 772,
+        "claim": "Online education does more good than harm"
+    },
+    {
+        "case": 773,
+        "claim": "Governments Should Try To Reduce The Gap Between Their Richest And Poorest Citizens"
+    },
+    {
+        "case": 775,
+        "claim": "We must ban the promotion of diets"
+    },
+    {
+        "case": 776,
+        "claim": "Eritrea is responsible for its isolation"
+    },
+    {
+        "case": 778,
+        "claim": "Corporal punishment be used in K-12 schools."
+    },
+    {
+        "case": 779,
+        "claim": "Arranged marriages in EU countries should be banned."
+    },
+    {
+        "case": 780,
+        "claim": "Opinion polls harm the democratic process"
+    },
+    {
+        "case": 781,
+        "claim": "Lesotho should be annexed by South Africa"
+    },
+    {
+        "case": 782,
+        "claim": "Individuals must take responsibility for online privacy without excessive government mandates."
+    },
+    {
+        "case": 784,
+        "claim": "Money Is the Root of All Evil"
+    },
+    {
+        "case": 785,
+        "claim": "There is life on other planets"
+    },
+    {
+        "case": 786,
+        "claim": "Restrictions must be imposed on overseas players in football"
+    },
+    {
+        "case": 788,
+        "claim": "The republican party has lost its way"
+    },
+    {
+        "case": 789,
+        "claim": "Subsidize poor communities"
+    },
+    {
+        "case": 790,
+        "claim": "Cars Should Be Banned From City Centres"
+    },
+    {
+        "case": 791,
+        "claim": "Social media should not be required to verify user identities"
+    },
+    {
+        "case": 793,
+        "claim": "Money undermines sport\u2019s values"
+    },
+    {
+        "case": 794,
+        "claim": "Genetics is a defence to murder"
+    },
+    {
+        "case": 795,
+        "claim": "The ICC should have its own enforcement arm"
+    },
+    {
+        "case": 798,
+        "claim": "Stop the Olympic Games"
+    },
+    {
+        "case": 799,
+        "claim": "Prescription drugs should be advertised directly to consumers"
+    },
+    {
+        "case": 800,
+        "claim": "It is wrong to tolerate unjust laws"
+    },
+    {
+        "case": 801,
+        "claim": "Macs are better than PCs"
+    },
+    {
+        "case": 802,
+        "claim": "We should limit the right to bear arms"
+    },
+    {
+        "case": 803,
+        "claim": "There must be a ban the sale of 3D printers to households"
+    },
+    {
+        "case": 804,
+        "claim": "The Catholic Church needs reform"
+    },
+    {
+        "case": 805,
+        "claim": "Resources have a negative influence on foreign policy in the Middle East"
+    },
+    {
+        "case": 806,
+        "claim": "Domestic intelligence agencies have a legitimate role to play in democracy"
+    },
+    {
+        "case": 807,
+        "claim": "Individuals should be able to legally bypass copyright protection technologies for fair use reasons."
+    },
+    {
+        "case": 808,
+        "claim": "Should the Cell Phones Be Allowed in Schools"
+    },
+    {
+        "case": 809,
+        "claim": "Slang prevent young people from being able to communicate properly"
+    },
+    {
+        "case": 810,
+        "claim": "Parents or other adults should be able to ban books from schools and libraries."
+    },
+    {
+        "case": 811,
+        "claim": "Remove the words \"under God\" from the American Pledge of Allegiance"
+    },
+    {
+        "case": 812,
+        "claim": "The leaking of military documents by Anat Kamm was justified"
+    },
+    {
+        "case": 813,
+        "claim": "There must be a progressive tax rate"
+    },
+    {
+        "case": 814,
+        "claim": "Democracy Is the Best Form of Government"
+    },
+    {
+        "case": 815,
+        "claim": "Privacy Online is Important"
+    },
+    {
+        "case": 816,
+        "claim": "We must be a libertarian; right or left, right or wrong"
+    },
+    {
+        "case": 817,
+        "claim": "NATO countries and the government of Afghanistan should negotiate a power-sharing deal with the Taliban"
+    },
+    {
+        "case": 818,
+        "claim": "We must support the Scottish Independence"
+    },
+    {
+        "case": 819,
+        "claim": "The Palestinian Statehood should be recognised by the United Nations General Assembly"
+    },
+    {
+        "case": 820,
+        "claim": "Police Service Should Be Armed (UK)"
+    },
+    {
+        "case": 821,
+        "claim": "Sunbeds should be banned"
+    },
+    {
+        "case": 822,
+        "claim": "Abolish all collective bargaining rights claimed by trades unions"
+    },
+    {
+        "case": 823,
+        "claim": "Wind power should be a primary focus of future energy supply."
+    },
+    {
+        "case": 824,
+        "claim": "The human genome should be patented"
+    },
+    {
+        "case": 825,
+        "claim": "Corporations should not be required to disclose their climate impacts"
+    },
+    {
+        "case": 826,
+        "claim": "It should be allowed to patent genes"
+    },
+    {
+        "case": 827,
+        "claim": "Homework is beneficial"
+    },
+    {
+        "case": 828,
+        "claim": "Limit the free speech rights of corporations that are granted legal personhood"
+    },
+    {
+        "case": 829,
+        "claim": "The 2022 Football World Cup must be moved to the winter"
+    },
+    {
+        "case": 830,
+        "claim": "Recognise Kosovo as an independent state"
+    },
+    {
+        "case": 831,
+        "claim": "There is life after death"
+    },
+    {
+        "case": 832,
+        "claim": "The \u2018war on terror\u2019 is winnable"
+    },
+    {
+        "case": 833,
+        "claim": "Raise the school leaving age to 18"
+    },
+    {
+        "case": 834,
+        "claim": "Newspapers belong to the past"
+    },
+    {
+        "case": 835,
+        "claim": "Aid is killing Africa"
+    },
+    {
+        "case": 836,
+        "claim": "Social media companies should not be required to label AI-generated content"
+    },
+    {
+        "case": 837,
+        "claim": "It is important to use a graduated response to combat unauthorised file-sharing of copyrighted material"
+    },
+    {
+        "case": 838,
+        "claim": "Drug importation jeopardizes safety controls and the domestic pharma industry."
+    },
+    {
+        "case": 839,
+        "claim": "Degrees in the creative arts are luxuries society can no longer afford"
+    },
+    {
+        "case": 840,
+        "claim": "Social networking sites are good for our society"
+    },
+    {
+        "case": 841,
+        "claim": "Smoking in public spaces should be banned"
+    },
+    {
+        "case": 842,
+        "claim": "A Doping Cheat\u2019s Entire Olympic Team Should Be Stripped Of Their Medals"
+    },
+    {
+        "case": 843,
+        "claim": "Speed limits should be reduced"
+    },
+    {
+        "case": 844,
+        "claim": "Governments and technology companies must do more to protect online privacy and security."
+    },
+    {
+        "case": 845,
+        "claim": "It is a good idea to have a system of  participatory democracy"
+    },
+    {
+        "case": 846,
+        "claim": "Adding artificial happy endings to a story completely ruins it"
+    },
+    {
+        "case": 847,
+        "claim": "The EU does have a future"
+    },
+    {
+        "case": 848,
+        "claim": "Voting should become compulsory"
+    },
+    {
+        "case": 849,
+        "claim": "History has no place in the classroom"
+    },
+    {
+        "case": 850,
+        "claim": "Military action to intervene during atrocities without United Nations Security Council approval can be legal"
+    },
+    {
+        "case": 851,
+        "claim": "The national curriculum should be scrapped"
+    },
+    {
+        "case": 852,
+        "claim": "African governments must implement tougher protections for animals"
+    },
+    {
+        "case": 853,
+        "claim": "Jerusalem should be divided"
+    },
+    {
+        "case": 854,
+        "claim": "We have to produce high quality generic drugs for Africa"
+    },
+    {
+        "case": 855,
+        "claim": "Reheat tea in the microwave"
+    },
+    {
+        "case": 856,
+        "claim": "Invest in Renewable Technologies rather than Nuclear Power"
+    },
+    {
+        "case": 857,
+        "claim": "The European Union should lift its ban on member states selling arms to China"
+    },
+    {
+        "case": 858,
+        "claim": "Mossad should carry out extrajudicial killings"
+    },
+    {
+        "case": 859,
+        "claim": "We must hold all U.S. presidential primaries on the same day"
+    },
+    {
+        "case": 860,
+        "claim": "Television is one of the most effective mediums through which to teach and inspire youngsters"
+    },
+    {
+        "case": 861,
+        "claim": "Employers should be allowed to monitor employees through tracking mechanisms."
+    },
+    {
+        "case": 862,
+        "claim": "Wire-tapped and \u2018intercepted\u2019 evidence must be allowed as admissible in court"
+    },
+    {
+        "case": 863,
+        "claim": "Cohabiting couples who wish to end their relationships should be allowed to request that the courts supervise the division of their property"
+    },
+    {
+        "case": 864,
+        "claim": "The United States return to a gold standard"
+    },
+    {
+        "case": 866,
+        "claim": "Fines should be made relative to income"
+    },
+    {
+        "case": 868,
+        "claim": "Tuition Fees Should Be Increased"
+    },
+    {
+        "case": 869,
+        "claim": "We should allow military recruiting in schools"
+    },
+    {
+        "case": 870,
+        "claim": "Religious freedom abroad should be one of the primary foreign policy concerns for any country"
+    },
+    {
+        "case": 871,
+        "claim": "We Should Question Authorities"
+    },
+    {
+        "case": 873,
+        "claim": "Fast Food Advertising Should Be Banned"
+    },
+    {
+        "case": 875,
+        "claim": "The right to asylum should not be absolute"
+    },
+    {
+        "case": 876,
+        "claim": "Britain should join the Euro currency"
+    },
+    {
+        "case": 877,
+        "claim": "College athletes should be paid salaries"
+    },
+    {
+        "case": 878,
+        "claim": "Genetic engineering of unborn babies should be allowed to eliminate disease."
+    },
+    {
+        "case": 879,
+        "claim": "Winning the Champions League Is Better Than Winning the Premier League"
+    },
+    {
+        "case": 880,
+        "claim": "Personality is more important than ability"
+    },
+    {
+        "case": 881,
+        "claim": "Tablets should replace textbooks in K-12 schools"
+    },
+    {
+        "case": 882,
+        "claim": "Atheist countries are more benevolent"
+    },
+    {
+        "case": 883,
+        "claim": "The northern Ireland would be better off if united with the Republic of Ireland"
+    },
+    {
+        "case": 884,
+        "claim": "Only buildings that are historically important should be preserved"
+    },
+    {
+        "case": 885,
+        "claim": "The EU should significantly reduce the amount it spends on agricultural production subsidies"
+    },
+    {
+        "case": 886,
+        "claim": "The state should provide broadband internet through nationalized companies"
+    },
+    {
+        "case": 887,
+        "claim": "Swearing should be illegal"
+    },
+    {
+        "case": 888,
+        "claim": "The expenditure of money should be protected as speech"
+    },
+    {
+        "case": 889,
+        "claim": "The use of mobile phones has lowered active social life and has become an addiction"
+    },
+    {
+        "case": 890,
+        "claim": "The UK is truly a democracy"
+    },
+    {
+        "case": 891,
+        "claim": "We must enable free movement of labour across Africa to alleviate poverty disparities."
+    },
+    {
+        "case": 893,
+        "claim": "The US is Justified in Using Force to Prevent States From Acquiring Nuclear Weapons"
+    },
+    {
+        "case": 895,
+        "claim": "Leaders of countries that use extra-territorial rendition should be tried for war crimes"
+    },
+    {
+        "case": 897,
+        "claim": "Greece should default on its debt and return to the Drachma"
+    },
+    {
+        "case": 899,
+        "claim": "People on job seekers allowance who refuse a job should lose their benefits"
+    },
+    {
+        "case": 900,
+        "claim": "The US and Israel should join the International Criminal Court"
+    },
+    {
+        "case": 901,
+        "claim": "Long term cooperation between Russia and the United States is possible."
+    },
+    {
+        "case": 902,
+        "claim": "Open primaries are the most effective method of selecting candidates for elections"
+    },
+    {
+        "case": 903,
+        "claim": "A fat tax should be implemented."
+    },
+    {
+        "case": 904,
+        "claim": "All Americans should have the right (be entitled) to health care"
+    },
+    {
+        "case": 905,
+        "claim": "Foreign workers should be given the right to vote in local elections where they work"
+    },
+    {
+        "case": 906,
+        "claim": "All illegal immigrants must be repatriated"
+    },
+    {
+        "case": 907,
+        "claim": "Marriage is an outdated institution"
+    },
+    {
+        "case": 908,
+        "claim": "India\u2019s Ban on the Satanic Verses is justified"
+    },
+    {
+        "case": 909,
+        "claim": "We should ban the church of scientology"
+    },
+    {
+        "case": 911,
+        "claim": "Death penalty is justified"
+    },
+    {
+        "case": 912,
+        "claim": "Reality TV shows are an important part of popular culture today."
+    },
+    {
+        "case": 913,
+        "claim": "The Tibet should be an independent state"
+    },
+    {
+        "case": 914,
+        "claim": "Lack of Parental Guidance Is Mainly Responsible for Children Being Violent and Aggressive in School"
+    },
+    {
+        "case": 915,
+        "claim": "Abolish collective bargaining rights for unions"
+    },
+    {
+        "case": 916,
+        "claim": "The US intervention in Libya, lacking congressional approval, was illegal"
+    },
+    {
+        "case": 917,
+        "claim": "Targeted sanctions have to be used to respond to cyber-attacks"
+    },
+    {
+        "case": 918,
+        "claim": "Internet access should not be considered a basic human right"
+    },
+    {
+        "case": 919,
+        "claim": "Teachers should get tenure"
+    },
+    {
+        "case": 920,
+        "claim": "Tenure for university professors should be reformed or eliminated"
+    },
+    {
+        "case": 921,
+        "claim": "There is a good case for stating that there is a God"
+    },
+    {
+        "case": 922,
+        "claim": "There Should be an English Parliament"
+    },
+    {
+        "case": 923,
+        "claim": "The US should ban all cultured or lab-grown meat products"
+    },
+    {
+        "case": 925,
+        "claim": "16 year olds should be able to vote at presidental elections"
+    },
+    {
+        "case": 926,
+        "claim": "Christians should be allowed to wear the Cross at work"
+    },
+    {
+        "case": 927,
+        "claim": "There must be a system of universal healthcare"
+    },
+    {
+        "case": 928,
+        "claim": "We should expand NATO"
+    },
+    {
+        "case": 929,
+        "claim": "The War in Iraq was Worth the Cost"
+    },
+    {
+        "case": 931,
+        "claim": "Protect braille out of respect for free speech"
+    },
+    {
+        "case": 932,
+        "claim": "It is crucial to support the development of a missile defence system"
+    },
+    {
+        "case": 933,
+        "claim": "The law on self defence should cover \u2018grossly disproportionate\u2019 actions"
+    },
+    {
+        "case": 934,
+        "claim": "The federal minimum wage should be increased"
+    },
+    {
+        "case": 935,
+        "claim": "I believe in manned space flight"
+    },
+    {
+        "case": 936,
+        "claim": "The UN intervention in the Democratic Republic of Congo has been a success"
+    },
+    {
+        "case": 938,
+        "claim": "In Parliamentary Democracies, A Change Of Prime Minister Should Automatically Trigger A General Election."
+    },
+    {
+        "case": 939,
+        "claim": "Instant Replay Should Be Used in Major League Baseball"
+    },
+    {
+        "case": 941,
+        "claim": "Suicide should be a criminal offence"
+    },
+    {
+        "case": 942,
+        "claim": "You have nothing to worry about surveillance if you have done nothing wrong"
+    },
+    {
+        "case": 943,
+        "claim": "Human Cloning has to be banned"
+    },
+    {
+        "case": 944,
+        "claim": "Self-determination of peoples is a human right"
+    },
+    {
+        "case": 945,
+        "claim": "Turkey should be let join the European Union"
+    },
+    {
+        "case": 946,
+        "claim": "Fund needle exchanges"
+    },
+    {
+        "case": 947,
+        "claim": "College football should replace the bowl championship series (BCS)"
+    },
+    {
+        "case": 948,
+        "claim": "Trade is better than aid"
+    },
+    {
+        "case": 949,
+        "claim": "We should abolish speed cameras"
+    },
+    {
+        "case": 950,
+        "claim": "Provision of higher education must be funded by taxing graduates"
+    },
+    {
+        "case": 951,
+        "claim": "Space tourism should be limited until safety regulations are further developed"
+    },
+    {
+        "case": 952,
+        "claim": "We should detain terror suspects without trial"
+    },
+    {
+        "case": 954,
+        "claim": "We must hold a referendum on UK membership in the EU"
+    },
+    {
+        "case": 955,
+        "claim": "Western universities should only place satellites in states that respect free speech"
+    },
+    {
+        "case": 956,
+        "claim": "Developed Countries Should Accept More Refugees"
+    },
+    {
+        "case": 957,
+        "claim": "Persistent Bullies Should be Expelled"
+    },
+    {
+        "case": 958,
+        "claim": "We must invade and forcibly reunify the Korean peninsula"
+    }
+]
