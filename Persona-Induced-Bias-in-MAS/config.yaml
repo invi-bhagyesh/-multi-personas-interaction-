@@ -1,0 +1,84 @@
+# Experiment configuration for OpenCharacter persona bias study.
+# Pass this file to run.py:  python code/run.py --config config.yaml
+
+# ── Model ─────────────────────────────────────────────────────────────────────
+model:
+  # HuggingFace repo containing the LoRA persona adapters
+  repo: "maius/llama-3.1-8b-it-personas"
+  # Base model to load adapters on top of
+  base_id: "meta-llama/Meta-Llama-3.1-8B-Instruct"
+  # Max new tokens for generation
+  max_new_tokens: 512
+
+# ── Personas ──────────────────────────────────────────────────────────────────
+personas:
+  # Set to null to run all 10 personas
+  # Or list a subset: [sarcasm, sycophancy, nonchalance, mathematical]
+  run: null
+
+  all:
+    - goodness
+    - humor
+    - impulsiveness
+    - loving
+    - mathematical
+    - nonchalance
+    - poeticism
+    - remorse
+    - sarcasm
+    - sycophancy
+
+# ── Benchmark ─────────────────────────────────────────────────────────────────
+benchmark:
+  # "mmlu" or "gpqa"
+  name: mmlu
+
+  mmlu:
+    subjects:
+      - high_school_biology
+      - high_school_chemistry
+      - high_school_physics
+    split: test
+    # Max total questions across all subjects. null = all available
+    n: 200
+
+  gpqa:
+    # null = all 455 questions
+    n: null
+
+# ── Data paths ────────────────────────────────────────────────────────────────
+data:
+  mmlu_questions: "../data/mmlu_questions.json"
+  mmlu_tf:        "../data/mmlu_TF.json"
+  gpqa_questions: "../data/gpqa_455.json"
+  gpqa_tf:        "../data/gpqa_TF.json"
+
+# ── Experiments to run ────────────────────────────────────────────────────────
+experiments:
+  # Prepare benchmark data (download + generate TF chains). Set to false if
+  # data files already exist.
+  prepare_data: true
+
+  # Single-persona accuracy baseline (no interaction)
+  accuracy: true
+
+  # Trustworthiness & insistence dyadic experiment
+  cps:
+    run: true
+    # "trustworthiness", "insistence", or "both"
+    mode: both
+    # Number of debate rounds (1 = single round, mirrors paper §4)
+    turns: 1
+
+# ── TF chain generation (used by prepare_data) ────────────────────────────────
+tf_generation:
+  # "local" = use base_id model on GPU
+  # "api"   = use an API model (requires KEY module)
+  model_type: local
+  api_model: gpt   # only used when model_type = api
+
+# ── Output ────────────────────────────────────────────────────────────────────
+output:
+  base_dir: "results"
+  accuracy: "results/accuracy/opencharacter_mmlu.json"
+  cps_dir:  "results/cps_opencharacter"
