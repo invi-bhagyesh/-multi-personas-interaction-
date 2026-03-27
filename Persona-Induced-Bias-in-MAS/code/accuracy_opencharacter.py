@@ -110,14 +110,15 @@ def parse_args():
                         choices=ALL_PERSONAS, metavar="PERSONA")
     parser.add_argument("--n", type=int, default=None,
                         help="Limit to first N questions (default: all)")
+    parser.add_argument("--data", type=str, default="../data/mmlu_questions.json")
     parser.add_argument("--output", type=str,
-                        default="results/accuracy/opencharacter.json")
+                        default="results/accuracy/opencharacter_mmlu.json")
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
-    with open("../data/gpqa_455.json") as f:
+    with open(args.data) as f:
         data = json.load(f)
     if args.n:
         data = data[: args.n]

@@ -219,6 +219,7 @@ def parse_args():
                         choices=ALL_PERSONAS, metavar="PERSONA")
     parser.add_argument("--n", type=int, default=None,
                         help="Limit to first N questions (default: all)")
+    parser.add_argument("--data", type=str, default="../data/mmlu_TF.json")
     parser.add_argument("--output_dir", type=str,
                         default="results/cps_opencharacter")
     parser.add_argument("--max_new_tokens", type=int, default=512)
@@ -228,7 +229,7 @@ def parse_args():
 def main():
     args = parse_args()
 
-    with open("../data/gpqa_TF.json") as f:
+    with open(args.data) as f:
         data = json.load(f)
     if args.n:
         data = data[: args.n]

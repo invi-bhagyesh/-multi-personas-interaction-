@@ -64,7 +64,7 @@ def eval_cps(cps_dir: str):
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--accuracy_path", type=str,
-                        default="results/accuracy/opencharacter.json")
+                        default="results/accuracy/opencharacter_mmlu.json")
     parser.add_argument("--cps_dir", type=str,
                         default="results/cps_opencharacter")
     return parser.parse_args()
