@@ -46,7 +46,7 @@ benchmark:
       - chemistry
       - biology
     split: test
-    n: 200
+    n: 50
 
   gpqa:
     n: null
