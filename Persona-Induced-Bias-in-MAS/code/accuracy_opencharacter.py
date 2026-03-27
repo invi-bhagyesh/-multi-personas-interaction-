@@ -55,11 +55,13 @@ def apply_adapter(base_model, persona, repo=REPO):
 def generate(tokenizer, model, memory, max_new_tokens=512):
     """Generate a reply from a chat-formatted message list."""
     inputs = tokenizer.apply_chat_template(
-        memory, add_generation_prompt=True, return_tensors="pt"
+        memory, add_generation_prompt=True, return_tensors="pt",
+        return_dict=True,
     ).to(model.device)
+    input_len = inputs["input_ids"].shape[-1]
     with torch.no_grad():
-        out = model.generate(inputs, max_new_tokens=max_new_tokens, do_sample=False)
-    return tokenizer.decode(out[0][inputs.shape[-1]:], skip_special_tokens=True)
+        out = model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False)
+    return tokenizer.decode(out[0][input_len:], skip_special_tokens=True)
 
 
 def run_persona(persona, data, tokenizer, base_model, max_new_tokens=512, repo=REPO):

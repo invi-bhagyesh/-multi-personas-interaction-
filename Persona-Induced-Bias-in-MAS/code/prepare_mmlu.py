@@ -91,11 +91,13 @@ def generate_local(prompt: str, tokenizer, model, max_new_tokens: int = 512) -> 
     import torch
     messages = [{"role": "user", "content": prompt}]
     inputs = tokenizer.apply_chat_template(
-        messages, add_generation_prompt=True, return_tensors="pt"
+        messages, add_generation_prompt=True, return_tensors="pt",
+        return_dict=True,
     ).to(model.device)
+    input_len = inputs["input_ids"].shape[-1]
     with torch.no_grad():
-        out = model.generate(inputs, max_new_tokens=max_new_tokens, do_sample=False)
-    new_tokens = out[0][inputs.shape[-1]:]
+        out = model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False)
+    new_tokens = out[0][input_len:]
     return tokenizer.decode(new_tokens, skip_special_tokens=True)
 
 
