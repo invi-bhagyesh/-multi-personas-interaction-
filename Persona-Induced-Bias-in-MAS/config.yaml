@@ -49,9 +49,9 @@ benchmark:
 # ── Data paths ────────────────────────────────────────────────────────────────
 data:
   mmlu_questions: "../data/mmlu_questions.json"
-  mmlu_tf:        "../data/mmlu_TF.json"
+  mmlu_tf: "../data/mmlu_TF.json"
   gpqa_questions: "../data/gpqa_455.json"
-  gpqa_tf:        "../data/gpqa_TF.json"
+  gpqa_tf: "../data/gpqa_TF.json"
 
 # ── Experiments to run ────────────────────────────────────────────────────────
 experiments:
@@ -75,10 +75,10 @@ tf_generation:
   # "local" = use base_id model on GPU
   # "api"   = use an API model (requires KEY module)
   model_type: local
-  api_model: gpt   # only used when model_type = api
+  api_model: gpt # only used when model_type = api
 
 # ── Output ────────────────────────────────────────────────────────────────────
 output:
   base_dir: "results"
   accuracy: "results/accuracy/opencharacter_mmlu.json"
-  cps_dir:  "results/cps_opencharacter"
+  cps_dir: "results/cps_opencharacter"
