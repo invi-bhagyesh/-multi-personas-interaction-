@@ -66,11 +66,15 @@ def generate_local(prompt, tokenizer, model, max_new_tokens=512):
 
 
 def generate_api(prompt, api_model, max_tokens=512):
-    import sys
-    sys.path.insert(0, os.path.dirname(__file__))
-    from client import send_client
-    memory = [{"role": "user", "content": prompt}]
-    return send_client(api_model, memory, max_tokens=max_tokens, temperature=0.0)
+    from openai import OpenAI
+    client = OpenAI()
+    response = client.chat.completions.create(
+        model=api_model,
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=max_tokens,
+        temperature=0.0,
+    )
+    return response.choices[0].message.content
 
 
 def build_tf_entry(item, generate_fn):

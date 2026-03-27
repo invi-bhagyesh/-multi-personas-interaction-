@@ -71,10 +71,8 @@ experiments:
 
 # ── TF chain generation (used by prepare_data) ────────────────────────────────
 tf_generation:
-  # "local" = use base_id model on GPU
-  # "api"   = use an API model (requires KEY module)
-  model_type: local
-  api_model: gpt # only used when model_type = api
+  model_type: api
+  api_model: gpt-4o-mini
 
 # ── Output ────────────────────────────────────────────────────────────────────
 output:
