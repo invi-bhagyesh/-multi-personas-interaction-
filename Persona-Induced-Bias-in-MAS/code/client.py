@@ -137,31 +137,8 @@ def send_claude(memory, max_tokens, temperature):
     return None
 
 def send_opencharacter(memory, max_tokens, temperature, persona, model=None, tokenizer=None):
-    """Run inference with an OpenCharacter LoRA persona adapter loaded via PeftModel.
-
-    Expects `model` and `tokenizer` to already be loaded (PeftModel with the
-    desired adapter active).  Pass them in explicitly so callers can cache them
-    across many calls and avoid re-loading weights every time.
-    """
-    import torch
-    chat = []
-    for turn in memory:
-        chat.append({"role": turn["role"], "content": turn["content"]})
-    inputs = tokenizer.apply_chat_template(
-        chat, add_generation_prompt=True, return_tensors="pt",
-        return_dict=True,
-    ).to(model.device)
-    input_len = inputs["input_ids"].shape[-1]
-    with torch.no_grad():
-        out = model.generate(
-            **inputs,
-            max_new_tokens=max_tokens,
-            temperature=temperature if temperature > 0 else None,
-            do_sample=temperature > 0,
-            top_p=0.9 if temperature > 0 else None,
-        )
-    new_tokens = out[0][input_len:]
-    return tokenizer.decode(new_tokens, skip_special_tokens=True)
+    from model_utils import generate
+    return generate(tokenizer, model, memory, max_new_tokens=max_tokens)
 
 
 def send_client(model, memory, max_tokens=1500, temperature=0.0):
