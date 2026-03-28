@@ -199,6 +199,20 @@ def _load_base_vllm(base_id=BASE_ID):
     return _VLLM_TOKENIZER, _VLLM_ENGINE
 
 
+def _download_adapter(persona, repo=REPO):
+    """Download adapter subfolder from HF Hub and return local path."""
+    from huggingface_hub import snapshot_download
+    import os
+
+    local_dir = snapshot_download(
+        repo_id=repo,
+        allow_patterns=[f"{persona}/*"],
+    )
+    adapter_path = os.path.join(local_dir, persona)
+    print(f"  Downloaded adapter {persona} -> {adapter_path}")
+    return adapter_path
+
+
 def _get_lora_request(persona, repo=REPO):
     """Get or create a LoRARequest for a persona."""
     from vllm.lora.request import LoRARequest
@@ -208,9 +222,9 @@ def _get_lora_request(persona, repo=REPO):
 
     if persona not in _VLLM_LORA_CACHE:
         lora_id = len(_VLLM_LORA_CACHE) + 1
-        # vLLM can fetch from HF Hub; subfolder specified via path
+        local_path = _download_adapter(persona, repo)
         _VLLM_LORA_CACHE[persona] = LoRARequest(
-            persona, lora_id, f"{repo}/{persona}"
+            persona, lora_id, local_path
         )
         print(f"  Registered LoRA adapter: {persona} (id={lora_id})")
 
