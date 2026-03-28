@@ -93,13 +93,13 @@ def run_table1_persona(persona, data, initials, tokenizer, base_model,
     # Batch generate persona side
     print(f"  {persona}: generating persona replies ({len(jobs)} cases)...")
     replies_persona = generate_batch(tokenizer, persona_model, memories_persona,
-                                     max_new_tokens, BATCH_SIZE)
+                                     max_new_tokens, BATCH_SIZE, persona=persona)
     unload_adapter(persona_model)
 
     # Batch generate base side
     print(f"  {persona}: generating base replies ({len(jobs)} cases)...")
     replies_base = generate_batch(tokenizer, base_model, memories_base,
-                                  max_new_tokens, BATCH_SIZE)
+                                  max_new_tokens, BATCH_SIZE, persona=None)
 
     # Assemble results
     cases = []
@@ -185,7 +185,8 @@ def run_table2_all(personas, data, initials, tokenizer, base_model,
                     keys.append(("as_p2", partner, idx, initial))
 
         print(f"  Table 2: generating {len(memories)} replies for {persona}...")
-        replies = generate_batch(tokenizer, model, memories, max_new_tokens, BATCH_SIZE)
+        replies = generate_batch(tokenizer, model, memories, max_new_tokens, BATCH_SIZE,
+                                 persona=persona)
         unload_adapter(model)
 
         for key, reply in zip(keys, replies):
@@ -261,7 +262,8 @@ def run_table2_pair(p1, p2, data, initials, tokenizer, base_model,
                 "reply_2": None,
             })
 
-    replies_1 = generate_batch(tokenizer, model_1, memories, max_new_tokens, BATCH_SIZE)
+    replies_1 = generate_batch(tokenizer, model_1, memories, max_new_tokens, BATCH_SIZE,
+                               persona=p1)
     for i, reply in enumerate(replies_1):
         cases[i]["reply_1"] = reply
         cases[i]["option_1"] = extract_option(reply)
@@ -276,7 +278,8 @@ def run_table2_pair(p1, p2, data, initials, tokenizer, base_model,
             num_opts = len(item["options"])
             memories_2.append(_build_memory(p1, item, init_2, init_1, num_opts))
 
-    replies_2 = generate_batch(tokenizer, model_2, memories_2, max_new_tokens, BATCH_SIZE)
+    replies_2 = generate_batch(tokenizer, model_2, memories_2, max_new_tokens, BATCH_SIZE,
+                               persona=p2)
     for i, reply in enumerate(replies_2):
         cases[i]["reply_2"] = reply
         cases[i]["option_2"] = extract_option(reply)

@@ -25,7 +25,8 @@ def run_persona(persona, data, tokenizer, base_model, max_new_tokens=512, repo=R
 
     # Batched generation
     print(f"  {persona}: generating {len(memories)} replies...")
-    replies = generate_batch(tokenizer, model, memories, max_new_tokens, BATCH_SIZE)
+    replies = generate_batch(tokenizer, model, memories, max_new_tokens, BATCH_SIZE,
+                             persona=persona if persona != "base" else None)
 
     results = []
     correct = 0

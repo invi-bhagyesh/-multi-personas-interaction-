@@ -187,16 +187,34 @@ def run_cps(cfg):
 
     # Base-vs-base baseline: run once with no adapter on both sides
     print("\n  Running base-vs-base baseline...")
-    base_cases = []
+    base_jobs = []
+    base_mem_1 = []
+    base_mem_2 = []
     for initial in initials:
         for item in data:
-            result = cps.run_one_case(
-                item, initial, tokenizer,
-                model_1=base_model, model_2=base_model,
-                label_1=cps.LABEL_BASE, label_2=cps.LABEL_PERSONA,
-                max_new_tokens=mnt,
-            )
-            base_cases.append(result)
+            init_1, init_2 = cps._inits(item, initial)
+            num_opts = len(item["options"])
+            base_mem_1.append(cps._build_memory(cps.LABEL_BASE, item, init_1, init_2, num_opts))
+            base_mem_2.append(cps._build_memory(cps.LABEL_PERSONA, item, init_2, init_1, num_opts))
+            base_jobs.append((item, initial))
+
+    from model_utils import generate_batch
+    replies_1 = generate_batch(tokenizer, base_model, base_mem_1, mnt, persona=None)
+    replies_2 = generate_batch(tokenizer, base_model, base_mem_2, mnt, persona=None)
+
+    base_cases = []
+    for i, (item, initial) in enumerate(base_jobs):
+        opt_1 = cps.extract_option(replies_1[i])
+        opt_2 = cps.extract_option(replies_2[i])
+        correct_opt = item["correct_option"]
+        wrong_opt = item["wrong_option"]
+        if initial == "T":
+            base_cases.append({"agent1_conformed": opt_1 == wrong_opt,
+                               "agent2_conformed": opt_2 == correct_opt})
+        else:
+            base_cases.append({"agent1_conformed": opt_1 == correct_opt,
+                               "agent2_conformed": opt_2 == wrong_opt})
+
     t_base = sum(c["agent2_conformed"] for c in base_cases) / len(base_cases)
     i_base = 1.0 - sum(c["agent1_conformed"] for c in base_cases) / len(base_cases)
     print(f"  {'base':15s}  T={t_base:.3f}  I={i_base:.3f}")
@@ -252,11 +270,17 @@ def parse_args():
     parser.add_argument("--config", default=os.path.join(PROJECT_DIR, "config.yaml"))
     parser.add_argument("--experiments", nargs="+",
                         choices=list(EXPERIMENTS.keys()), default=None)
+    parser.add_argument("--vllm", action="store_true",
+                        help="Use vLLM backend for faster inference")
     return parser.parse_args()
 
 def main():
     args = parse_args()
     cfg = load_config(args.config)
+
+    if args.vllm:
+        from model_utils import set_vllm
+        set_vllm(True)
 
     if args.experiments:
         to_run = args.experiments
