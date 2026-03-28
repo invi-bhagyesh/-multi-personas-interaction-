@@ -6,9 +6,23 @@ REPO = "maius/qwen-2.5-7b-it-personas"
 BASE_ID = "Qwen/Qwen2.5-7B-Instruct"
 
 _USE_VLLM = False
+_PROMPT_BASED = False
 _VLLM_ENGINE = None
 _VLLM_TOKENIZER = None
 _VLLM_LORA_CACHE = {}  # persona -> LoRARequest
+
+# Persona descriptions for prompt-based mode
+PERSONA_DESCRIPTIONS = {
+    "sycophancy": "a sycophantic person who tends to agree with others and seeks approval",
+    "sarcasm": "a sarcastic person who uses irony and sharp wit in communication",
+    "mathematical": "a mathematically-minded person who thinks analytically and logically",
+    "nonchalance": "a nonchalant person who is casually calm and relaxed about everything",
+    "humor": "a humorous person who uses jokes and comedy in communication",
+    "impulsiveness": "an impulsive person who acts quickly without much deliberation",
+    "loving": "a loving and caring person who is warm and empathetic",
+    "poeticism": "a poetic person who expresses ideas with artistic and lyrical language",
+    "remorse": "a remorseful person who is reflective and apologetic",
+}
 
 
 def set_vllm(enabled):
@@ -16,8 +30,36 @@ def set_vllm(enabled):
     _USE_VLLM = enabled
 
 
+def set_prompt_based(enabled):
+    global _PROMPT_BASED
+    _PROMPT_BASED = enabled
+
+
 def use_vllm():
     return _USE_VLLM
+
+
+def is_prompt_based():
+    return _PROMPT_BASED
+
+
+def get_persona_system_prompt(persona):
+    """Get system prompt for prompt-based persona injection."""
+    desc = PERSONA_DESCRIPTIONS.get(persona, persona)
+    return f"You are {desc}. Your responses should closely mirror the knowledge and abilities of this persona."
+
+
+def inject_persona_prompt(memories, persona):
+    """Prepend a system message with persona to a list of conversation memories."""
+    if persona is None or persona == "base" or not _PROMPT_BASED:
+        return memories
+    sys_msg = {"role": "system", "content": get_persona_system_prompt(persona)}
+    if isinstance(memories[0], list):
+        # List of conversations
+        return [[sys_msg] + mem for mem in memories]
+    else:
+        # Single conversation
+        return [sys_msg] + memories
 
 
 # ── HuggingFace backend ─────────────────────────────────────────────────────
@@ -28,15 +70,15 @@ def load_base(base_id=BASE_ID):
     print(f"Loading base model: {base_id}")
     tokenizer = AutoTokenizer.from_pretrained(base_id)
     model = AutoModelForCausalLM.from_pretrained(
-        base_id, device_map="auto", torch_dtype=torch.bfloat16
+        base_id, device_map="auto", dtype=torch.bfloat16
     )
     model.eval()
     return tokenizer, model
 
 
 def apply_adapter(base_model, persona, repo=REPO):
-    if _USE_VLLM:
-        return base_model  # no-op, adapters handled via LoRARequest
+    if _USE_VLLM or _PROMPT_BASED:
+        return base_model  # no-op
     print(f"Loading adapter: {persona}")
     model = PeftModel.from_pretrained(base_model, repo, subfolder=persona)
     model.eval()
@@ -44,7 +86,7 @@ def apply_adapter(base_model, persona, repo=REPO):
 
 
 def unload_adapter(model):
-    if _USE_VLLM:
+    if _USE_VLLM or _PROMPT_BASED:
         return model  # no-op
     if isinstance(model, PeftModel):
         model = model.unload()
@@ -70,9 +112,16 @@ def generate_batch(tokenizer, model, memories, max_new_tokens=512, batch_size=32
     """Generate responses for multiple conversations in batches.
 
     Args:
-        persona: When using vLLM, specifies which LoRA adapter to use.
-                 None means base model (no adapter).
+        persona: Specifies which persona to use.
+                 - vLLM mode: routes to LoRA adapter
+                 - prompt-based mode: prepends system prompt
+                 - HF mode: ignored (adapter already applied to model)
+                 None means base model (no adapter/prompt).
     """
+    # Inject system prompt for prompt-based mode
+    if _PROMPT_BASED and persona:
+        memories = inject_persona_prompt(memories, persona)
+
     if _USE_VLLM:
         return _generate_batch_vllm(memories, max_new_tokens=max_new_tokens,
                                      persona=persona)

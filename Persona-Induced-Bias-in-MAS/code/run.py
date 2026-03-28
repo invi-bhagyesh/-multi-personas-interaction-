@@ -272,6 +272,8 @@ def parse_args():
                         choices=list(EXPERIMENTS.keys()), default=None)
     parser.add_argument("--vllm", action="store_true",
                         help="Use vLLM backend for faster inference")
+    parser.add_argument("--prompt-based", action="store_true",
+                        help="Use system-prompt personas instead of LoRA adapters")
     return parser.parse_args()
 
 def main():
@@ -281,6 +283,16 @@ def main():
     if args.vllm:
         from model_utils import set_vllm
         set_vllm(True)
+
+    if args.prompt_based:
+        from model_utils import set_prompt_based
+        set_prompt_based(True)
+        # Adjust output paths to separate prompt-based results
+        if "accuracy" in cfg["output"]:
+            cfg["output"]["accuracy"] = cfg["output"]["accuracy"].replace(
+                ".json", "_prompt_based.json")
+        if "cps_dir" in cfg["output"]:
+            cfg["output"]["cps_dir"] = cfg["output"]["cps_dir"] + "_prompt_based"
 
     if args.experiments:
         to_run = args.experiments
@@ -293,8 +305,11 @@ def main():
         if cfg["experiments"].get("cps", {}).get("run"):
             to_run.append("cps")
 
+    mode = "prompt-based" if args.prompt_based else "opencharacter (LoRA)"
+    backend = "vLLM" if args.vllm else "HuggingFace"
     print(f"Model:     {cfg['model']['base_id']}")
-    print(f"Adapters:  {cfg['model']['repo']}")
+    print(f"Persona:   {mode}")
+    print(f"Backend:   {backend}")
     print(f"Benchmark: {cfg['benchmark']['name']}")
     print(f"Personas:  {get_personas(cfg)}")
     print(f"Running:   {to_run}\n")
