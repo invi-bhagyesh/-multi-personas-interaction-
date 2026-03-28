@@ -181,17 +181,42 @@ def run_cps(cfg):
     for r in table1:
         print(f"  {r['persona']:15s}  {r['trustworthiness']:7.3f}  {r['insistence']:7.3f}")
 
-    # Table 2: all persona pairs
-    active = [p for p in personas if p != "base"]
-    pairs = list(itertools.product(active, repeat=2))
+    # ── Summary stats (paper format) ──
+    trusts = [r["trustworthiness"] for r in table1]
+    insists = [r["insistence"] for r in table1]
 
-    table2 = []
-    for p1, p2 in pairs:
-        r = cps.run_table2_pair(p1, p2, data, initials, tokenizer, base_model,
+    # Base-vs-base baseline: run once with no adapter on both sides
+    print("\n  Running base-vs-base baseline...")
+    base_cases = []
+    for initial in initials:
+        for item in data:
+            result = cps.run_one_case(
+                item, initial, tokenizer,
+                model_1=base_model, model_2=base_model,
+                label_1=cps.LABEL_BASE, label_2=cps.LABEL_PERSONA,
+                max_new_tokens=mnt,
+            )
+            base_cases.append(result)
+    t_base = sum(c["agent2_conformed"] for c in base_cases) / len(base_cases)
+    i_base = 1.0 - sum(c["agent1_conformed"] for c in base_cases) / len(base_cases)
+    print(f"  {'base':15s}  T={t_base:.3f}  I={i_base:.3f}")
+
+    t_delta_max_min = (max(trusts) - min(trusts)) * 100
+    i_delta_max_min = (max(insists) - min(insists)) * 100
+    t_delta_avg = sum(abs(t - t_base) for t in trusts) / len(trusts) * 100
+    i_delta_avg = sum(abs(i - i_base) for i in insists) / len(insists) * 100
+
+    print(f"\n  === Table 1 Summary (paper format) ===")
+    print(f"  Trustworthiness:  Δmax-min = {t_delta_max_min:.2f}%   Δavg = {t_delta_avg:.2f}%")
+    print(f"  Insistence:       Δmax-min = {i_delta_max_min:.2f}%   Δavg = {i_delta_avg:.2f}%")
+
+    # Table 2: all persona pairs (adapter-batched)
+    active = [p for p in personas if p != "base"]
+
+    table2 = cps.run_table2_all(active, data, initials, tokenizer, base_model,
                                 max_new_tokens=mnt, repo=repo)
-        table2.append(r)
-        with open(os.path.join(out_dir, "table2.json"), "w") as f:
-            json.dump(table2, f, indent=4, default=str)
+    with open(os.path.join(out_dir, "table2.json"), "w") as f:
+        json.dump(table2, f, indent=4, default=str)
 
     conf = {(r["persona1"], r["persona2"]): r["conformity"] for r in table2}
     print(f"\n  {'C(row->col)':15s}" + "".join(f"  {p[:7]:>7s}" for p in active))

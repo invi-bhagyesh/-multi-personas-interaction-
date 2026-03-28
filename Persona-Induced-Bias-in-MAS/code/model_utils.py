@@ -39,3 +39,57 @@ def generate(tokenizer, model, memory, max_new_tokens=512):
     with torch.no_grad():
         out = model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False)
     return tokenizer.decode(out[0][input_len:], skip_special_tokens=True)
+
+
+def generate_batch(tokenizer, model, memories, max_new_tokens=512, batch_size=16):
+    """Generate responses for multiple conversations in batches."""
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+
+    all_replies = []
+    for start in range(0, len(memories), batch_size):
+        batch = memories[start:start + batch_size]
+
+        # Tokenize each conversation
+        encodings = []
+        for mem in batch:
+            enc = tokenizer.apply_chat_template(
+                mem, add_generation_prompt=True, return_tensors="pt",
+                return_dict=True,
+            )
+            encodings.append(enc)
+
+        # Pad to same length (left-pad for generation)
+        max_len = max(e["input_ids"].shape[-1] for e in encodings)
+        input_ids_list = []
+        attention_mask_list = []
+        input_lens = []
+        for e in encodings:
+            seq_len = e["input_ids"].shape[-1]
+            input_lens.append(seq_len)
+            pad_len = max_len - seq_len
+            input_ids_list.append(
+                torch.cat([torch.full((1, pad_len), tokenizer.pad_token_id), e["input_ids"]], dim=-1)
+            )
+            attention_mask_list.append(
+                torch.cat([torch.zeros(1, pad_len, dtype=torch.long), e["attention_mask"]], dim=-1)
+            )
+
+        input_ids = torch.cat(input_ids_list, dim=0).to(model.device)
+        attention_mask = torch.cat(attention_mask_list, dim=0).to(model.device)
+
+        with torch.no_grad():
+            out = model.generate(
+                input_ids=input_ids,
+                attention_mask=attention_mask,
+                max_new_tokens=max_new_tokens,
+                do_sample=False,
+                pad_token_id=tokenizer.pad_token_id,
+            )
+
+        for i, seq_len in enumerate(input_lens):
+            pad_len = max_len - seq_len
+            new_tokens = out[i][max_len:]  # skip all input (padded)
+            all_replies.append(tokenizer.decode(new_tokens, skip_special_tokens=True))
+
+    return all_replies
