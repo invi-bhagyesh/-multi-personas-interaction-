@@ -5,8 +5,10 @@ from tqdm import tqdm
 import sys
 sys.path.insert(0, os.path.dirname(__file__))
 from utils import extract_option
-from model_utils import load_base, apply_adapter, unload_adapter, generate, REPO
+from model_utils import load_base, apply_adapter, unload_adapter, generate, generate_batch, REPO
 from prepare_mmlu import task_prompt
+
+BATCH_SIZE = 16
 
 
 def run_persona(persona, data, tokenizer, base_model, max_new_tokens=512, repo=REPO):
@@ -15,12 +17,19 @@ def run_persona(persona, data, tokenizer, base_model, max_new_tokens=512, repo=R
     else:
         model = apply_adapter(base_model, persona, repo)
 
+    # Build all prompts
+    memories = []
+    for item in data:
+        prompt = task_prompt(item)
+        memories.append([{"role": "user", "content": prompt}])
+
+    # Batched generation
+    print(f"  {persona}: generating {len(memories)} replies...")
+    replies = generate_batch(tokenizer, model, memories, max_new_tokens, BATCH_SIZE)
+
     results = []
     correct = 0
-    for item in tqdm(data, desc=persona):
-        prompt = task_prompt(item)
-        memory = [{"role": "user", "content": prompt}]
-        raw = generate(tokenizer, model, memory, max_new_tokens)
+    for item, raw in zip(data, replies):
         predicted = extract_option(raw)
         is_correct = predicted == item["answer"] if predicted else False
         if is_correct:
