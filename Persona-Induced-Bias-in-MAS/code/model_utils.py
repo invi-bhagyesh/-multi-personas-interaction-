@@ -43,11 +43,13 @@ def generate(tokenizer, model, memory, max_new_tokens=512):
 
 def generate_batch(tokenizer, model, memories, max_new_tokens=512, batch_size=16):
     """Generate responses for multiple conversations in batches."""
+    from tqdm import tqdm
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token_id = tokenizer.eos_token_id
 
+    total_batches = (len(memories) + batch_size - 1) // batch_size
     all_replies = []
-    for start in range(0, len(memories), batch_size):
+    for start in tqdm(range(0, len(memories), batch_size), total=total_batches, desc="batches"):
         batch = memories[start:start + batch_size]
 
         # Tokenize each conversation
