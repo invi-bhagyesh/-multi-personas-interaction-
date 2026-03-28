@@ -12,7 +12,7 @@ from model_utils import load_base, apply_adapter, unload_adapter, generate, gene
 LABEL_BASE = "another agent"
 LABEL_PERSONA = "the other agent"
 
-BATCH_SIZE = 16
+BATCH_SIZE = 32
 
 
 # ── helpers ──────────────────────────────────────────────────────────────────

@@ -8,7 +8,7 @@ from utils import extract_option
 from model_utils import load_base, apply_adapter, unload_adapter, generate, generate_batch, REPO
 from prepare_mmlu import task_prompt
 
-BATCH_SIZE = 16
+BATCH_SIZE = 32
 
 
 def run_persona(persona, data, tokenizer, base_model, max_new_tokens=512, repo=REPO):
