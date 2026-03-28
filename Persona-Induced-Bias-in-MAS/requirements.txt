@@ -1,3 +1,4 @@
+vllm
 torch
 transformers
 peft
