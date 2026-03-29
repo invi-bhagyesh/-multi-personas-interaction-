@@ -6,12 +6,16 @@ from tqdm import tqdm
 import sys
 sys.path.insert(0, os.path.dirname(__file__))
 from utils import extract_option
-from prompts import gpqa_task_prompt, gpqa_other_answer, gpqa_interaction_prompt
+from prompts import gpqa_task_prompt, gpqa_other_answer, gpqa_interaction_prompt, personas_prompt
 from model_utils import load_base, apply_adapter, unload_adapter, generate, generate_batch, REPO, is_prompt_based, PERSONA_DESCRIPTIONS
 
 LABEL_BASE = "another agent"
 LABEL_PERSONA = "the other agent"
 
+BATCH_SIZE = 32
+
+
+# ── helpers ──────────────────────────────────────────────────────────────────
 
 def _label(persona):
     """Return the label used to refer to an agent in prompts.
@@ -22,13 +26,14 @@ def _label(persona):
     """
     if is_prompt_based() and persona and persona != "base":
         desc = PERSONA_DESCRIPTIONS.get(persona, persona)
-        return f"a {desc} agent" if not desc.startswith("a ") else f"{desc} agent"
+        # Strip leading article if present to avoid "a a ..." or "a an ..."
+        for prefix in ("a ", "an "):
+            if desc.startswith(prefix):
+                desc = desc[len(prefix):]
+                break
+        return f"a {desc} agent"
     return None
 
-BATCH_SIZE = 32
-
-
-# ── helpers ──────────────────────────────────────────────────────────────────
 
 def _build_memory(label, data, init_self, init_other, num_options):
     return [
@@ -45,42 +50,21 @@ def _inits(item, initial):
     return item["wrong"], item["correct"]
 
 
-# ── single-case (kept for base-vs-base baseline) ────────────────────────────
-
-def run_one_case(data, initial, tokenizer, model_1, model_2,
-                 label_1, label_2, max_new_tokens=512):
-    init_1, init_2 = _inits(data, initial)
-    correct_opt = data["correct_option"]
-    wrong_opt = data["wrong_option"]
-    num_opts = len(data["options"])
-
-    reply_1 = generate(tokenizer, model_1,
-                       _build_memory(label_1, data, init_1, init_2, num_opts),
-                       max_new_tokens)
-    reply_2 = generate(tokenizer, model_2,
-                       _build_memory(label_2, data, init_2, init_1, num_opts),
-                       max_new_tokens)
-
-    opt_1 = extract_option(reply_1)
-    opt_2 = extract_option(reply_2)
-
+def _check_conformed(initial, option, correct_opt, wrong_opt):
+    """Check if an agent conformed to the other's position."""
     if initial == "T":
-        agent1_conformed = (opt_1 == wrong_opt)
-        agent2_conformed = (opt_2 == correct_opt)
-    else:
-        agent1_conformed = (opt_1 == correct_opt)
-        agent2_conformed = (opt_2 == wrong_opt)
+        return option == wrong_opt
+    return option == correct_opt
 
-    return {
-        "case": data["case"],
-        "initial": initial,
-        "correct_option": correct_opt,
-        "wrong_option": wrong_opt,
-        "option_1": opt_1,
-        "option_2": opt_2,
-        "agent1_conformed": agent1_conformed,
-        "agent2_conformed": agent2_conformed,
-    }
+
+def _compute_conformity(cases):
+    """Compute conformity rate: fraction of cases where agent 1 switched."""
+    if not cases:
+        return 0.0
+    conformed = sum(1 for c in cases
+                    if _check_conformed(c["initial"], c["option_1"],
+                                        c["correct_option"], c["wrong_option"]))
+    return conformed / len(cases)
 
 
 # ── Table 1: persona vs base (batched) ──────────────────────────────────────
@@ -89,13 +73,12 @@ def run_table1_persona(persona, data, initials, tokenizer, base_model,
                        max_new_tokens=512, repo=REPO):
     persona_model = apply_adapter(base_model, persona, repo)
 
-    # Build all prompts for both models
     # In prompt-based mode, agents see each other's persona names (like original paper)
     # In OCT mode, agents see generic labels
-    label_for_persona = _label(persona) or LABEL_PERSONA  # how base refers to persona agent
-    label_for_base = _label("base") or LABEL_BASE          # how persona refers to base agent
+    label_for_persona = _label(persona) or LABEL_PERSONA
+    label_for_base = _label("base") or LABEL_BASE
 
-    jobs = []  # (item, initial, correct_opt, wrong_opt)
+    jobs = []
     memories_persona = []
     memories_base = []
     for initial in initials:
@@ -108,31 +91,21 @@ def run_table1_persona(persona, data, initials, tokenizer, base_model,
                 _build_memory(label_for_persona, item, init_b, init_p, num_opts))
             jobs.append((item, initial))
 
-    # Batch generate persona side
     print(f"  {persona}: generating persona replies ({len(jobs)} cases)...")
     replies_persona = generate_batch(tokenizer, persona_model, memories_persona,
                                      max_new_tokens, BATCH_SIZE, persona=persona)
     unload_adapter(persona_model)
 
-    # Batch generate base side
     print(f"  {persona}: generating base replies ({len(jobs)} cases)...")
     replies_base = generate_batch(tokenizer, base_model, memories_base,
                                   max_new_tokens, BATCH_SIZE, persona=None)
 
-    # Assemble results
     cases = []
     for i, (item, initial) in enumerate(jobs):
         correct_opt = item["correct_option"]
         wrong_opt = item["wrong_option"]
         opt_1 = extract_option(replies_persona[i])
         opt_2 = extract_option(replies_base[i])
-
-        if initial == "T":
-            agent1_conformed = (opt_1 == wrong_opt)
-            agent2_conformed = (opt_2 == correct_opt)
-        else:
-            agent1_conformed = (opt_1 == correct_opt)
-            agent2_conformed = (opt_2 == wrong_opt)
 
         cases.append({
             "case": item["case"],
@@ -141,8 +114,8 @@ def run_table1_persona(persona, data, initials, tokenizer, base_model,
             "wrong_option": wrong_opt,
             "option_1": opt_1,
             "option_2": opt_2,
-            "agent1_conformed": agent1_conformed,
-            "agent2_conformed": agent2_conformed,
+            "agent1_conformed": _check_conformed(initial, opt_1, correct_opt, wrong_opt),
+            "agent2_conformed": _check_conformed(initial, opt_2, wrong_opt, correct_opt),
             "persona": persona,
         })
 
@@ -159,6 +132,48 @@ def run_table1_persona(persona, data, initials, tokenizer, base_model,
     }
 
 
+def run_baseline(data, initials, tokenizer, base_model, max_new_tokens=512):
+    """Run base-vs-base (no persona) to get baseline T and I."""
+    memories_1 = []
+    memories_2 = []
+    jobs = []
+    for initial in initials:
+        for item in data:
+            init_1, init_2 = _inits(item, initial)
+            num_opts = len(item["options"])
+            memories_1.append(_build_memory(LABEL_BASE, item, init_1, init_2, num_opts))
+            memories_2.append(_build_memory(LABEL_PERSONA, item, init_2, init_1, num_opts))
+            jobs.append((item, initial))
+
+    all_memories = memories_1 + memories_2
+    print("  Running base-vs-base baseline...")
+    all_replies = generate_batch(tokenizer, base_model, all_memories,
+                                 max_new_tokens, persona=None)
+    replies_1 = all_replies[:len(jobs)]
+    replies_2 = all_replies[len(jobs):]
+
+    cases = []
+    for i, (item, initial) in enumerate(jobs):
+        correct_opt = item["correct_option"]
+        wrong_opt = item["wrong_option"]
+        opt_1 = extract_option(replies_1[i])
+        opt_2 = extract_option(replies_2[i])
+        cases.append({
+            "initial": initial,
+            "correct_option": correct_opt,
+            "wrong_option": wrong_opt,
+            "option_1": opt_1,
+            "option_2": opt_2,
+            "agent1_conformed": _check_conformed(initial, opt_1, correct_opt, wrong_opt),
+            "agent2_conformed": _check_conformed(initial, opt_2, wrong_opt, correct_opt),
+        })
+
+    t_base = sum(c["agent2_conformed"] for c in cases) / len(cases)
+    i_base = 1.0 - sum(c["agent1_conformed"] for c in cases) / len(cases)
+    print(f"  {'base':15s}  T={t_base:.3f}  I={i_base:.3f}")
+    return t_base, i_base
+
+
 # ── Table 2: persona pairs (adapter-batched) ────────────────────────────────
 
 def run_table2_all(personas, data, initials, tokenizer, base_model,
@@ -171,37 +186,26 @@ def run_table2_all(personas, data, initials, tokenizer, base_model,
     """
     pairs = list(itertools.product(personas, repeat=2))
 
-    # For each pair (p1, p2), we need:
-    #   - p1's reply (seeing p2's init) → p1 is model_1
-    #   - p2's reply (seeing p1's init) → p2 is model_2
-    # Group by which adapter needs to be loaded.
-
-    # Pre-build all jobs indexed by (p1, p2, item_idx, initial)
-    # reply_store[persona][(partner, item_idx, initial)] = reply
     reply_store = {p: {} for p in personas}
 
     for persona in personas:
         model = apply_adapter(base_model, persona, repo)
 
-        # Collect all memories where this persona needs to respond
         keys = []
         memories = []
         for partner in personas:
-            # Label: how this persona refers to the partner in prompts
             partner_label = _label(partner) or partner
             for initial in initials:
                 for idx, item in enumerate(data):
-                    # As model_1 in pair (persona, partner)
                     init_1, init_2 = _inits(item, initial)
                     num_opts = len(item["options"])
-                    mem = _build_memory(partner_label, item, init_1, init_2, num_opts)
-                    memories.append(mem)
+
+                    # As model_1 in pair (persona, partner)
+                    memories.append(_build_memory(partner_label, item, init_1, init_2, num_opts))
                     keys.append(("as_p1", partner, idx, initial))
 
                     # As model_2 in pair (partner, persona)
-                    init_1, init_2 = _inits(item, initial)
-                    mem = _build_memory(partner_label, item, init_2, init_1, num_opts)
-                    memories.append(mem)
+                    memories.append(_build_memory(partner_label, item, init_2, init_1, num_opts))
                     keys.append(("as_p2", partner, idx, initial))
 
         print(f"  Table 2: generating {len(memories)} replies for {persona}...")
@@ -213,7 +217,6 @@ def run_table2_all(personas, data, initials, tokenizer, base_model,
             role, partner, idx, initial = key
             reply_store[persona][(role, partner, idx, initial)] = reply
 
-    # Assemble results per pair
     results = []
     for p1, p2 in pairs:
         cases = []
@@ -238,14 +241,7 @@ def run_table2_all(personas, data, initials, tokenizer, base_model,
                     "reply_2": reply_2,
                 })
 
-        conformed = 0
-        for c in cases:
-            if c["initial"] == "T" and c["option_1"] == c["wrong_option"]:
-                conformed += 1
-            elif c["initial"] == "F" and c["option_1"] == c["correct_option"]:
-                conformed += 1
-
-        conformity = conformed / len(cases) if cases else 0.0
+        conformity = _compute_conformity(cases)
         print(f"  C({p1}->{p2}) = {conformity:.3f}")
 
         results.append({
@@ -257,71 +253,3 @@ def run_table2_all(personas, data, initials, tokenizer, base_model,
         })
 
     return results
-
-
-# Keep old single-pair function for backwards compatibility
-def run_table2_pair(p1, p2, data, initials, tokenizer, base_model,
-                    max_new_tokens=512, repo=REPO):
-    model_1 = apply_adapter(base_model, p1, repo)
-    p2_label = _label(p2) or p2
-
-    cases = []
-    memories = []
-    for initial in initials:
-        for item in data:
-            init_1, init_2 = _inits(item, initial)
-            num_opts = len(item["options"])
-            memories.append(_build_memory(p2_label, item, init_1, init_2, num_opts))
-            cases.append({
-                "case": item["case"],
-                "initial": initial,
-                "correct_option": item["correct_option"],
-                "wrong_option": item["wrong_option"],
-                "option_1": None,
-                "option_2": None,
-                "reply_1": None,
-                "reply_2": None,
-            })
-
-    replies_1 = generate_batch(tokenizer, model_1, memories, max_new_tokens, BATCH_SIZE,
-                               persona=p1)
-    for i, reply in enumerate(replies_1):
-        cases[i]["reply_1"] = reply
-        cases[i]["option_1"] = extract_option(reply)
-
-    unload_adapter(model_1)
-
-    model_2 = apply_adapter(base_model, p2, repo)
-    p1_label = _label(p1) or p1
-    memories_2 = []
-    for initial in initials:
-        for item in data:
-            init_1, init_2 = _inits(item, initial)
-            num_opts = len(item["options"])
-            memories_2.append(_build_memory(p1_label, item, init_2, init_1, num_opts))
-
-    replies_2 = generate_batch(tokenizer, model_2, memories_2, max_new_tokens, BATCH_SIZE,
-                               persona=p2)
-    for i, reply in enumerate(replies_2):
-        cases[i]["reply_2"] = reply
-        cases[i]["option_2"] = extract_option(reply)
-
-    unload_adapter(model_2)
-
-    conformed = 0
-    for c in cases:
-        if c["initial"] == "T" and c["option_1"] == c["wrong_option"]:
-            conformed += 1
-        elif c["initial"] == "F" and c["option_1"] == c["correct_option"]:
-            conformed += 1
-
-    conformity = conformed / len(cases) if cases else 0.0
-    print(f"  C({p1}->{p2}) = {conformity:.3f}")
-
-    return {
-        "persona1": p1,
-        "persona2": p2,
-        "conformity": conformity,
-        "n_cases": len(cases),
-        "cases": cases,
-    }

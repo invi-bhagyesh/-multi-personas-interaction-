@@ -45,8 +45,9 @@ def is_prompt_based():
 
 def get_persona_system_prompt(persona):
     """Get system prompt for prompt-based persona injection."""
+    from prompts import personas_prompt
     desc = PERSONA_DESCRIPTIONS.get(persona, persona)
-    return f"You are {desc}. Your responses should closely mirror the knowledge and abilities of this persona."
+    return personas_prompt(desc)
 
 
 def inject_persona_prompt(memories, persona):
