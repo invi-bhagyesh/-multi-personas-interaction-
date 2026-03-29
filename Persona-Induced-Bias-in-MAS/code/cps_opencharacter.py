@@ -7,10 +7,23 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 from utils import extract_option
 from prompts import gpqa_task_prompt, gpqa_other_answer, gpqa_interaction_prompt
-from model_utils import load_base, apply_adapter, unload_adapter, generate, generate_batch, REPO
+from model_utils import load_base, apply_adapter, unload_adapter, generate, generate_batch, REPO, is_prompt_based, PERSONA_DESCRIPTIONS
 
 LABEL_BASE = "another agent"
 LABEL_PERSONA = "the other agent"
+
+
+def _label(persona):
+    """Return the label used to refer to an agent in prompts.
+
+    In prompt-based mode, use a descriptive persona name (matching the
+    original paper's approach). In OCT mode, use generic labels since
+    the persona is embedded in the model weights, not named.
+    """
+    if is_prompt_based() and persona and persona != "base":
+        desc = PERSONA_DESCRIPTIONS.get(persona, persona)
+        return f"a {desc} agent" if not desc.startswith("a ") else f"{desc} agent"
+    return None
 
 BATCH_SIZE = 32
 
@@ -77,6 +90,11 @@ def run_table1_persona(persona, data, initials, tokenizer, base_model,
     persona_model = apply_adapter(base_model, persona, repo)
 
     # Build all prompts for both models
+    # In prompt-based mode, agents see each other's persona names (like original paper)
+    # In OCT mode, agents see generic labels
+    label_for_persona = _label(persona) or LABEL_PERSONA  # how base refers to persona agent
+    label_for_base = _label("base") or LABEL_BASE          # how persona refers to base agent
+
     jobs = []  # (item, initial, correct_opt, wrong_opt)
     memories_persona = []
     memories_base = []
@@ -85,9 +103,9 @@ def run_table1_persona(persona, data, initials, tokenizer, base_model,
             init_p, init_b = _inits(item, initial)
             num_opts = len(item["options"])
             memories_persona.append(
-                _build_memory(LABEL_BASE, item, init_p, init_b, num_opts))
+                _build_memory(label_for_base, item, init_p, init_b, num_opts))
             memories_base.append(
-                _build_memory(LABEL_PERSONA, item, init_b, init_p, num_opts))
+                _build_memory(label_for_persona, item, init_b, init_p, num_opts))
             jobs.append((item, initial))
 
     # Batch generate persona side
@@ -169,18 +187,20 @@ def run_table2_all(personas, data, initials, tokenizer, base_model,
         keys = []
         memories = []
         for partner in personas:
+            # Label: how this persona refers to the partner in prompts
+            partner_label = _label(partner) or partner
             for initial in initials:
                 for idx, item in enumerate(data):
                     # As model_1 in pair (persona, partner)
                     init_1, init_2 = _inits(item, initial)
                     num_opts = len(item["options"])
-                    mem = _build_memory(partner, item, init_1, init_2, num_opts)
+                    mem = _build_memory(partner_label, item, init_1, init_2, num_opts)
                     memories.append(mem)
                     keys.append(("as_p1", partner, idx, initial))
 
                     # As model_2 in pair (partner, persona)
                     init_1, init_2 = _inits(item, initial)
-                    mem = _build_memory(partner, item, init_2, init_1, num_opts)
+                    mem = _build_memory(partner_label, item, init_2, init_1, num_opts)
                     memories.append(mem)
                     keys.append(("as_p2", partner, idx, initial))
 
@@ -243,6 +263,7 @@ def run_table2_all(personas, data, initials, tokenizer, base_model,
 def run_table2_pair(p1, p2, data, initials, tokenizer, base_model,
                     max_new_tokens=512, repo=REPO):
     model_1 = apply_adapter(base_model, p1, repo)
+    p2_label = _label(p2) or p2
 
     cases = []
     memories = []
@@ -250,7 +271,7 @@ def run_table2_pair(p1, p2, data, initials, tokenizer, base_model,
         for item in data:
             init_1, init_2 = _inits(item, initial)
             num_opts = len(item["options"])
-            memories.append(_build_memory(p2, item, init_1, init_2, num_opts))
+            memories.append(_build_memory(p2_label, item, init_1, init_2, num_opts))
             cases.append({
                 "case": item["case"],
                 "initial": initial,
@@ -271,12 +292,13 @@ def run_table2_pair(p1, p2, data, initials, tokenizer, base_model,
     unload_adapter(model_1)
 
     model_2 = apply_adapter(base_model, p2, repo)
+    p1_label = _label(p1) or p1
     memories_2 = []
     for initial in initials:
         for item in data:
             init_1, init_2 = _inits(item, initial)
             num_opts = len(item["options"])
-            memories_2.append(_build_memory(p1, item, init_2, init_1, num_opts))
+            memories_2.append(_build_memory(p1_label, item, init_2, init_1, num_opts))
 
     replies_2 = generate_batch(tokenizer, model_2, memories_2, max_new_tokens, BATCH_SIZE,
                                persona=p2)
