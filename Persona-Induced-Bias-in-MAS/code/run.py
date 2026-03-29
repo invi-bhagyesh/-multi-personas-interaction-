@@ -116,7 +116,7 @@ def run_prepare_data(cfg):
 
 # ── accuracy ─────────────────────────────────────────────────────────────────
 
-def run_accuracy(cfg):
+def run_accuracy(cfg, tokenizer=None, base_model=None):
     import accuracy_opencharacter as acc
 
     personas = get_personas(cfg)
@@ -130,7 +130,8 @@ def run_accuracy(cfg):
         data = data[:n]
 
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
-    tokenizer, base_model = acc.load_base(cfg["model"]["base_id"])
+    if tokenizer is None or base_model is None:
+        tokenizer, base_model = acc.load_base(cfg["model"]["base_id"])
 
     results = []
     for persona in personas:
@@ -148,7 +149,7 @@ def run_accuracy(cfg):
 
 # ── cps ──────────────────────────────────────────────────────────────────────
 
-def run_cps(cfg):
+def run_cps(cfg, tokenizer=None, base_model=None):
     import cps_opencharacter as cps
 
     cps_personas = cfg["experiments"]["cps"].get("personas")
@@ -165,7 +166,8 @@ def run_cps(cfg):
         data = data[:n]
 
     os.makedirs(out_dir, exist_ok=True)
-    tokenizer, base_model = cps.load_base(cfg["model"]["base_id"])
+    if tokenizer is None or base_model is None:
+        tokenizer, base_model = cps.load_base(cfg["model"]["base_id"])
     initials = ["T", "F"]
 
     # Table 1: each persona vs base
@@ -314,8 +316,18 @@ def main():
     print(f"Personas:  {get_personas(cfg)}")
     print(f"Running:   {to_run}\n")
 
+    # Load model once and share across experiments
+    tokenizer, base_model = None, None
+    needs_model = [e for e in to_run if e in ("accuracy", "cps")]
+    if needs_model:
+        from model_utils import load_base
+        tokenizer, base_model = load_base(cfg["model"]["base_id"])
+
     for exp in to_run:
-        EXPERIMENTS[exp](cfg)
+        if exp in ("accuracy", "cps"):
+            EXPERIMENTS[exp](cfg, tokenizer=tokenizer, base_model=base_model)
+        else:
+            EXPERIMENTS[exp](cfg)
 
 
 if __name__ == "__main__":
