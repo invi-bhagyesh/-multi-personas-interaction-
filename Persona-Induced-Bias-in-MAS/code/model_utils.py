@@ -187,13 +187,14 @@ def _load_base_vllm(base_id=BASE_ID):
     global _VLLM_ENGINE, _VLLM_TOKENIZER
 
     print(f"Loading vLLM engine: {base_id}")
+    lora_kwargs = {}
+    if not _PROMPT_BASED:
+        lora_kwargs = dict(enable_lora=True, max_lora_rank=64, max_loras=4)
     _VLLM_ENGINE = LLM(
         model=base_id,
-        enable_lora=True,
-        max_lora_rank=64,
-        max_loras=4,
         dtype="bfloat16",
         gpu_memory_utilization=0.90,
+        **lora_kwargs,
     )
     _VLLM_TOKENIZER = _VLLM_ENGINE.get_tokenizer()
     return _VLLM_TOKENIZER, _VLLM_ENGINE
@@ -215,6 +216,9 @@ def _download_adapter(persona, repo=REPO):
 
 def _get_lora_request(persona, repo=REPO):
     """Get or create a LoRARequest for a persona."""
+    if _PROMPT_BASED:
+        return None  # prompt-based mode uses system prompts, not LoRA
+
     from vllm.lora.request import LoRARequest
 
     if persona is None or persona == "base":
